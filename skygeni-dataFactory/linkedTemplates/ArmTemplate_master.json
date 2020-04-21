@@ -54,14 +54,14 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"LS_SQLDB_connectionString": {
+						"value": "[parameters('LS_SQLDB_connectionString')]"
+					},
 					"LS_SALESFORCE_DS_password": {
 						"value": "[parameters('LS_SALESFORCE_DS_password')]"
 					},
 					"LS_SALESFORCE_DS_securityToken": {
 						"value": "[parameters('LS_SALESFORCE_DS_securityToken')]"
-					},
-					"LS_SQLDB_connectionString": {
-						"value": "[parameters('LS_SQLDB_connectionString')]"
 					},
 					"LS_SALESFORCE_DS_properties_typeProperties_environmentUrl": {
 						"value": "[parameters('LS_SALESFORCE_DS_properties_typeProperties_environmentUrl')]"
