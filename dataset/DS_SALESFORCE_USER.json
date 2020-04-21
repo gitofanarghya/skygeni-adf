@@ -1,0 +1,16 @@
+{
+	"name": "DS_SALESFORCE_USER",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SALESFORCE_DS",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SalesforceObject",
+		"schema": [],
+		"typeProperties": {
+			"objectApiName": "User"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
