@@ -1,0 +1,24 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "skygeni-dataFactory"
+		},
+		"LS_SALESFORCE_DS_password": {
+			"value": ""
+		},
+		"LS_SALESFORCE_DS_securityToken": {
+			"value": ""
+		},
+		"LS_SQLDB_connectionString": {
+			"value": ""
+		},
+		"LS_SALESFORCE_DS_properties_typeProperties_environmentUrl": {
+			"value": "https://login.salesforce.com"
+		},
+		"LS_SALESFORCE_DS_properties_typeProperties_username": {
+			"value": "api@cleo.com"
+		}
+	}
+}
