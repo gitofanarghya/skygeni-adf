@@ -1,0 +1,17 @@
+{
+	"name": "DS_SQLDB_OPPORTUNITY_HISTORY",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SQLDB",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "CLEO_OPPORTUNITY_HISTORY"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

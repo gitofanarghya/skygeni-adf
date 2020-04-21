@@ -334,6 +334,117 @@
 					"referenceName": "LS_SQLDB",
 					"type": "LinkedServiceReference"
 				}
+			},
+			{
+				"name": "ACT_CPY_OPPORTUNITY_HISTORY",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "LOOKUP_CONTROL_OPPORTUNITY_HISTORY",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SalesforceSource",
+						"query": {
+							"value": "SELECT Id, OpportunityId, CreatedById, CreatedDate, StageName, Amount, ExpectedRevenue, CloseDate, Probability, ForecastCategory, SystemModstamp, IsDeleted from USER where SystemModstamp > @{formatDateTime(activity('LOOKUP_CONTROL_OPPORTUNITY_HISTORY').output.firstRow.LastLoadDate,'yyyy-MM-ddTHH:mm:ssZ')}",
+							"type": "Expression"
+						},
+						"readBehavior": "query"
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_SALESFORCE_USER",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_SQLDB_USER",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "LOOKUP_CONTROL_OPPORTUNITY_HISTORY",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "SELECT * FROM [dbo].[SalesForceControlTable] WHERE [SourceObject] = 'OPPORTUNITY_HISTORY'",
+						"queryTimeout": "02:00:00"
+					},
+					"dataset": {
+						"referenceName": "DS_SQLDB_CONTROL",
+						"type": "DatasetReference"
+					}
+				}
+			},
+			{
+				"name": "UPDATE_CONTROL_OPPORTUNITY_HISTORY",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "ACT_CPY_OPPORTUNITY_HISTORY",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[SalesForceControlProc]",
+					"storedProcedureParameters": {
+						"LastModifiedtime": {
+							"value": {
+								"value": "@formatDateTime(utcnow(), 'yyyy-MM-ddTHH:mm:ssZ')",
+								"type": "Expression"
+							},
+							"type": "DateTime"
+						},
+						"Object": {
+							"value": "OPPORTUNITY_HISTORY",
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "LS_SQLDB",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"annotations": []
