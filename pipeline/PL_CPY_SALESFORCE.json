@@ -364,8 +364,9 @@
 						"readBehavior": "query"
 					},
 					"sink": {
-						"type": "AzureSqlSink",
-						"tableOption": "autoCreate"
+						"type": "SalesforceSink",
+						"writeBatchSize": 5000,
+						"writeBehavior": "insert"
 					},
 					"enableStaging": false
 				},
@@ -377,7 +378,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "DS_SQLDB_USER",
+						"referenceName": "DS_SALESFORCE_OPPORTUNITY_HISTORY",
 						"type": "DatasetReference"
 					}
 				]
