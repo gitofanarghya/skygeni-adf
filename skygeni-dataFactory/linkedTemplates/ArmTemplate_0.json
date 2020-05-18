@@ -130,7 +130,7 @@
 				"schema": [],
 				"typeProperties": {
 					"schema": "dbo",
-					"table": "CLEO_OPPORTUNITY_HISTORY"
+					"table": "STG_OPPORTUNITY_HISTORY"
 				}
 			},
 			"dependsOn": [
@@ -159,7 +159,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DS_SQLDB_USER')]",
+			"name": "[concat(parameters('factoryName'), '/DS_SQLDB_OPPORTUNITY_FIELD_HISTORY')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -172,7 +172,7 @@
 				"schema": [],
 				"typeProperties": {
 					"schema": "dbo",
-					"table": "CLEO_USER"
+					"table": "STG_OPPRTUNITY_FIELD_HISTORY"
 				}
 			},
 			"dependsOn": [
@@ -268,7 +268,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DS_SALESFORCE_USER')]",
+			"name": "[concat(parameters('factoryName'), '/DS_SALESFORCE_OPPORTUNITY_FIELD_HISTORY')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -280,7 +280,7 @@
 				"type": "SalesforceObject",
 				"schema": [],
 				"typeProperties": {
-					"objectApiName": "User"
+					"objectApiName": "OpportunityFieldHistory"
 				}
 			},
 			"dependsOn": [
@@ -343,11 +343,11 @@
 						]
 					},
 					{
-						"name": "ACT_CPY_PRODUCT",
+						"name": "ACT_CPY_OPPORTUNITY_FIELD_HISTORY",
 						"type": "Copy",
 						"dependsOn": [
 							{
-								"activity": "LOOKUP_CONTROL_PRODUCT",
+								"activity": "LOOKUP_CONTROL_OPPORTUNITY_FIELD_HISTORY",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -365,7 +365,7 @@
 							"source": {
 								"type": "SalesforceSource",
 								"query": {
-									"value": "SELECT Id, Name, ProductCode, Description, IsActive, CreatedDate, CreatedById, LastModifiedDate, LastModifiedById, SystemModstamp, Family, ExternalDataSourceId, ExternalId, DisplayUrl from PRODUCT2 where LastModifiedDate > @{formatDateTime(activity('LOOKUP_CONTROL_PRODUCT').output.firstRow.LastLoadDate,'yyyy-MM-ddTHH:mm:ssZ')}",
+									"value": "SELECT Id, IsDeleted, OpportunityId, CreatedById, CreatedDate, Field, OldValue, NewValue from OPPORTUNITYFIELDHISTORY where CreatedDate> @{formatDateTime(activity('LOOKUP_CONTROL_OPPORTUNITY_FIELD_HISTORY').output.firstRow.LastLoadDate,'yyyy-MM-ddTHH:mm:ssZ')}",
 									"type": "Expression"
 								},
 								"readBehavior": "query"
@@ -378,63 +378,14 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "DS_SALESFORCE_PRODUCT",
+								"referenceName": "DS_SALESFORCE_OPPORTUNITY_FIELD_HISTORY",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
 						],
 						"outputs": [
 							{
-								"referenceName": "DS_SQLDB_PRODUCT",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
-					},
-					{
-						"name": "ACT_CPY_USER",
-						"type": "Copy",
-						"dependsOn": [
-							{
-								"activity": "LOOKUP_CONTROL_USER",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "SalesforceSource",
-								"query": {
-									"value": "SELECT Id, Username, LastName, FirstName, Name, CompanyName, Division, Department, Title, Street, City, State, PostalCode, Country, Latitude, Longitude, GeocodeAccuracy, Email, EmailPreferencesAutoBcc, EmailPreferencesAutoBccStayInTouch, EmailPreferencesStayInTouchReminder, SenderEmail, SenderName, Signature, StayInTouchSubject, StayInTouchSignature, StayInTouchNote, Phone, Fax, MobilePhone, Alias, CommunityNickname, BadgeText, IsActive, TimeZoneSidKey, UserRoleId, LocaleSidKey, ReceivesInfoEmails, ReceivesAdminInfoEmails, EmailEncodingKey, ProfileId, UserType, LanguageLocaleKey, EmployeeNumber, DelegatedApproverId, ManagerId, LastLoginDate, CreatedDate, CreatedById, LastModifiedDate, LastModifiedById, SystemModstamp, OfflineTrialExpirationDate, OfflinePdaTrialExpirationDate, UserPermissionsMarketingUser, UserPermissionsOfflineUser, UserPermissionsAvantgoUser, UserPermissionsCallCenterAutoLogin, UserPermissionsMobileUser, UserPermissionsSFContentUser, UserPermissionsKnowledgeUser, UserPermissionsInteractionUser, UserPermissionsSupportUser, UserPermissionsChatterAnswersUser, ForecastEnabled, UserPreferencesActivityRemindersPopup, UserPreferencesEventRemindersCheckboxDefault, UserPreferencesTaskRemindersCheckboxDefault, UserPreferencesReminderSoundOff, UserPreferencesDisableAllFeedsEmail, UserPreferencesDisableFollowersEmail, UserPreferencesDisableProfilePostEmail, UserPreferencesDisableChangeCommentEmail, UserPreferencesDisableLaterCommentEmail, UserPreferencesDisProfPostCommentEmail, UserPreferencesApexPagesDeveloperMode, UserPreferencesHideCSNGetChatterMobileTask, UserPreferencesDisableMentionsPostEmail, UserPreferencesDisMentionsCommentEmail, UserPreferencesHideCSNDesktopTask, UserPreferencesHideChatterOnboardingSplash, UserPreferencesHideSecondChatterOnboardingSplash, UserPreferencesDisCommentAfterLikeEmail, UserPreferencesDisableLikeEmail, UserPreferencesSortFeedByComment, UserPreferencesDisableMessageEmail, UserPreferencesDisableBookmarkEmail, UserPreferencesDisableSharePostEmail, UserPreferencesEnableAutoSubForFeeds, UserPreferencesDisableFileShareNotificationsForApi, UserPreferencesShowTitleToExternalUsers, UserPreferencesShowManagerToExternalUsers, UserPreferencesShowEmailToExternalUsers, UserPreferencesShowWorkPhoneToExternalUsers, UserPreferencesShowMobilePhoneToExternalUsers, UserPreferencesShowFaxToExternalUsers, UserPreferencesShowStreetAddressToExternalUsers, UserPreferencesShowCityToExternalUsers, UserPreferencesShowStateToExternalUsers, UserPreferencesShowPostalCodeToExternalUsers, UserPreferencesShowCountryToExternalUsers, UserPreferencesShowProfilePicToGuestUsers, UserPreferencesShowTitleToGuestUsers, UserPreferencesShowCityToGuestUsers, UserPreferencesShowStateToGuestUsers, UserPreferencesShowPostalCodeToGuestUsers, UserPreferencesShowCountryToGuestUsers, UserPreferencesPipelineViewHideHelpPopover, UserPreferencesHideS1BrowserUI, UserPreferencesDisableEndorsementEmail, UserPreferencesPathAssistantCollapsed, UserPreferencesCacheDiagnostics, UserPreferencesShowEmailToGuestUsers, UserPreferencesShowManagerToGuestUsers, UserPreferencesShowWorkPhoneToGuestUsers, UserPreferencesShowMobilePhoneToGuestUsers, UserPreferencesShowFaxToGuestUsers, UserPreferencesShowStreetAddressToGuestUsers, UserPreferencesLightningExperiencePreferred, UserPreferencesPreviewLightning, UserPreferencesHideEndUserOnboardingAssistantModal, UserPreferencesHideLightningMigrationModal, UserPreferencesHideSfxWelcomeMat, UserPreferencesHideBiggerPhotoCallout, UserPreferencesGlobalNavBarWTShown, UserPreferencesGlobalNavGridMenuWTShown, UserPreferencesCreateLEXAppsWTShown, UserPreferencesFavoritesWTShown, UserPreferencesRecordHomeSectionCollapseWTShown, UserPreferencesRecordHomeReservedWTShown, UserPreferencesFavoritesShowTopFavorites, UserPreferencesExcludeMailAppAttachments, UserPreferencesSuppressTaskSFXReminders, UserPreferencesSuppressEventSFXReminders, UserPreferencesPreviewCustomTheme, UserPreferencesHasCelebrationBadge, UserPreferencesUserDebugModePref, UserPreferencesNewLightningReportRunPageEnabled, ContactId, AccountId, CallCenterId, Extension, FederationIdentifier, AboutMe, FullPhotoUrl, SmallPhotoUrl, IsExtIndicatorVisible, OutOfOfficeMessage, MediumPhotoUrl, DigestFrequency, DefaultGroupNotificationFrequency, LastViewedDate, LastReferencedDate, BannerPhotoUrl, SmallBannerPhotoUrl, MediumBannerPhotoUrl, IsProfilePhotoActive, IndividualId, Mobile__c, User_External_ID__c, RT1__ReadyTalkAdministrator__c, RT1__ReadyTalkUser__c, BDR__c, Enterprise__c, Midmarket__c, Low_End__c, EMEA__c, Streem__c, Channel__c, Sales_Role__c, West_Enterprise__c, RT1__MeetingsCollaboratorUser__c, is_Account_Manager__c, GMT__c, Account_Manager__c, Customer_Success_Manager__c, approver__c, Previous_Role__c, NSID__c, Current_Role__c, dsfs__DSProSFUsername__c, dfsle__CanManageAccount__c, dfsle__Provisioned__c, dfsle__Status__c, dfsle__Username__c from USER where LastModifiedDate > @{formatDateTime(activity('LOOKUP_CONTROL_USER').output.firstRow.LastLoadDate,'yyyy-MM-ddTHH:mm:ssZ')}",
-									"type": "Expression"
-								},
-								"readBehavior": "query"
-							},
-							"sink": {
-								"type": "AzureSqlSink",
-								"tableOption": "autoCreate"
-							},
-							"enableStaging": false
-						},
-						"inputs": [
-							{
-								"referenceName": "DS_SALESFORCE_USER",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "DS_SQLDB_USER",
+								"referenceName": "DS_SQLDB_OPPORTUNITY_FIELD_HISTORY",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -466,7 +417,7 @@
 						}
 					},
 					{
-						"name": "LOOKUP_CONTROL_PRODUCT",
+						"name": "LOOKUP_CONTROL_OPPORTUNITY_FIELD_HISTORY",
 						"type": "Lookup",
 						"dependsOn": [],
 						"policy": {
@@ -480,32 +431,7 @@
 						"typeProperties": {
 							"source": {
 								"type": "AzureSqlSource",
-								"sqlReaderQuery": "SELECT * FROM [dbo].[SalesForceControlTable] WHERE [SourceObject] = 'PRODUCT'",
-								"queryTimeout": "02:00:00"
-							},
-							"dataset": {
-								"referenceName": "DS_SQLDB_CONTROL",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						}
-					},
-					{
-						"name": "LOOKUP_CONTROL_USER",
-						"type": "Lookup",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderQuery": "SELECT * FROM [dbo].[SalesForceControlTable] WHERE [SourceObject] = 'USER'",
+								"sqlReaderQuery": "SELECT * FROM [dbo].[SalesForceControlTable] WHERE [SourceObject] = 'OPPORTUNITY_FIELD_HISTORY'",
 								"queryTimeout": "02:00:00"
 							},
 							"dataset": {
@@ -556,11 +482,11 @@
 						}
 					},
 					{
-						"name": "UPDATE_CONTROL_USER",
+						"name": "UPDATE_CONTROL_OPPORTUNITY_FIELD_HISTORY",
 						"type": "SqlServerStoredProcedure",
 						"dependsOn": [
 							{
-								"activity": "ACT_CPY_USER",
+								"activity": "ACT_CPY_OPPORTUNITY_FIELD_HISTORY",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -586,46 +512,6 @@
 								},
 								"Object": {
 									"value": "USER",
-									"type": "String"
-								}
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "LS_SQLDB",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "UPDATE_CONTROL_PRODUCT",
-						"type": "SqlServerStoredProcedure",
-						"dependsOn": [
-							{
-								"activity": "ACT_CPY_PRODUCT",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"storedProcedureName": "[[dbo].[SalesForceControlProc]",
-							"storedProcedureParameters": {
-								"LastModifiedtime": {
-									"value": {
-										"value": "@formatDateTime(utcnow(), 'yyyy-MM-ddTHH:mm:ssZ')",
-										"type": "Expression"
-									},
-									"type": "DateTime"
-								},
-								"Object": {
-									"value": "PRODUCT",
 									"type": "String"
 								}
 							}
@@ -664,22 +550,21 @@
 								"readBehavior": "query"
 							},
 							"sink": {
-								"type": "SalesforceSink",
-								"writeBatchSize": 5000,
-								"writeBehavior": "insert"
+								"type": "AzureSqlSink",
+								"tableOption": "autoCreate"
 							},
 							"enableStaging": false
 						},
 						"inputs": [
 							{
-								"referenceName": "DS_SALESFORCE_USER",
+								"referenceName": "DS_SALESFORCE_OPPORTUNITY_HISTORY",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
 						],
 						"outputs": [
 							{
-								"referenceName": "DS_SALESFORCE_OPPORTUNITY_HISTORY",
+								"referenceName": "DS_SQLDB_OPPORTUNITY_HISTORY",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -756,13 +641,12 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DS_SALESFORCE_OPPORTUNITY')]",
 				"[concat(variables('factoryId'), '/datasets/DS_SQLDB_OPPORTUNITY')]",
-				"[concat(variables('factoryId'), '/datasets/DS_SALESFORCE_PRODUCT')]",
-				"[concat(variables('factoryId'), '/datasets/DS_SQLDB_PRODUCT')]",
-				"[concat(variables('factoryId'), '/datasets/DS_SALESFORCE_USER')]",
-				"[concat(variables('factoryId'), '/datasets/DS_SQLDB_USER')]",
+				"[concat(variables('factoryId'), '/datasets/DS_SALESFORCE_OPPORTUNITY_FIELD_HISTORY')]",
+				"[concat(variables('factoryId'), '/datasets/DS_SQLDB_OPPORTUNITY_FIELD_HISTORY')]",
 				"[concat(variables('factoryId'), '/datasets/DS_SQLDB_CONTROL')]",
 				"[concat(variables('factoryId'), '/linkedServices/LS_SQLDB')]",
-				"[concat(variables('factoryId'), '/datasets/DS_SALESFORCE_OPPORTUNITY_HISTORY')]"
+				"[concat(variables('factoryId'), '/datasets/DS_SALESFORCE_OPPORTUNITY_HISTORY')]",
+				"[concat(variables('factoryId'), '/datasets/DS_SQLDB_OPPORTUNITY_HISTORY')]"
 			]
 		}
 	]
