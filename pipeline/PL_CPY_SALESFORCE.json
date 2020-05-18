@@ -101,7 +101,7 @@
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "LOOKUP_CONTROL_USER",
+						"activity": "LOOKUP_CONTROL_OPPORTUNITY_FIELD_HISTORY",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -192,7 +192,7 @@
 				}
 			},
 			{
-				"name": "LOOKUP_CONTROL_USER",
+				"name": "LOOKUP_CONTROL_OPPORTUNITY_FIELD_HISTORY",
 				"type": "Lookup",
 				"dependsOn": [],
 				"policy": {
@@ -206,7 +206,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "SELECT * FROM [dbo].[SalesForceControlTable] WHERE [SourceObject] = 'USER'",
+						"sqlReaderQuery": "SELECT * FROM [dbo].[SalesForceControlTable] WHERE [SourceObject] = 'OPPORTUNITY_FIELD_HISTORY'",
 						"queryTimeout": "02:00:00"
 					},
 					"dataset": {
