@@ -247,7 +247,7 @@
 					"source": {
 						"type": "SalesforceSource",
 						"query": {
-							"value": "SELECT Id, OpportunityId, CreatedById, CreatedDate, StageName, Amount, ExpectedRevenue, CloseDate, Probability, ForecastCategory, SystemModstamp, IsDeleted from USER where SystemModstamp > @{formatDateTime(activity('LOOKUP_CONTROL_OPPORTUNITY_HISTORY').output.firstRow.LastLoadDate,'yyyy-MM-ddTHH:mm:ssZ')}",
+							"value": "SELECT Id, OpportunityId, CreatedById, CreatedDate, StageName, Amount, ExpectedRevenue, CloseDate, Probability, ForecastCategory, SystemModstamp, IsDeleted from OPPORTUNITYHISTORY where SystemModstamp > @{formatDateTime(activity('LOOKUP_CONTROL_OPPORTUNITY_HISTORY').output.firstRow.LastLoadDate,'yyyy-MM-ddTHH:mm:ssZ')}",
 							"type": "Expression"
 						},
 						"readBehavior": "query"
