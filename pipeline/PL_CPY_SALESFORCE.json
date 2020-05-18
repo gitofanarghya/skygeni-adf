@@ -97,7 +97,7 @@
 				]
 			},
 			{
-				"name": "ACT_CPY_USER",
+				"name": "ACT_CPY_OPPORTUNITY_FIELD_HISTORY",
 				"type": "Copy",
 				"dependsOn": [
 					{
@@ -132,7 +132,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "DS_SALESFORCE_USER",
+						"referenceName": "DS_SALESFORCE_OPPORTUNITY_FIELD_HISTORY",
 						"type": "DatasetReference"
 					}
 				],
@@ -260,7 +260,7 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "ACT_CPY_USER",
+						"activity": "ACT_CPY_OPPORTUNITY_FIELD_HISTORY",
 						"dependencyConditions": [
 							"Succeeded"
 						]
