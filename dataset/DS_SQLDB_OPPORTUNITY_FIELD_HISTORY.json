@@ -1,5 +1,5 @@
 {
-	"name": "DS_SQLDB_USER",
+	"name": "DS_SQLDB_OPPORTUNITY_FIELD_HISTORY",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "LS_SQLDB",
@@ -10,7 +10,7 @@
 		"schema": [],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": "CLEO_USER"
+			"table": "STG_OPPRTUNITY_FIELD_HISTORY"
 		}
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
