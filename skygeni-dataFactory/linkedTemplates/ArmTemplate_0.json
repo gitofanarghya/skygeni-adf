@@ -109,7 +109,7 @@
 				"schema": [],
 				"typeProperties": {
 					"schema": "dbo",
-					"table": "CLEO_OPPORTUNITY"
+					"table": "OPPORTUNITY"
 				}
 			},
 			"dependsOn": [
@@ -172,7 +172,7 @@
 				"schema": [],
 				"typeProperties": {
 					"schema": "dbo",
-					"table": "STG_OPPRTUNITY_FIELD_HISTORY"
+					"table": "STG_OPPORTUNITY_FIELD_HISTORY"
 				}
 			},
 			"dependsOn": [
