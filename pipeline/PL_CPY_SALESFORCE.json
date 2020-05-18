@@ -50,53 +50,6 @@
 				]
 			},
 			{
-				"name": "ACT_CPY_PRODUCT",
-				"type": "Copy",
-				"dependsOn": [
-					{
-						"activity": "LOOKUP_CONTROL_PRODUCT",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"source": {
-						"type": "SalesforceSource",
-						"query": {
-							"value": "SELECT Id, Name, ProductCode, Description, IsActive, CreatedDate, CreatedById, LastModifiedDate, LastModifiedById, SystemModstamp, Family, ExternalDataSourceId, ExternalId, DisplayUrl from PRODUCT2 where LastModifiedDate > @{formatDateTime(activity('LOOKUP_CONTROL_PRODUCT').output.firstRow.LastLoadDate,'yyyy-MM-ddTHH:mm:ssZ')}",
-							"type": "Expression"
-						},
-						"readBehavior": "query"
-					},
-					"sink": {
-						"type": "AzureSqlSink",
-						"tableOption": "autoCreate"
-					},
-					"enableStaging": false
-				},
-				"inputs": [
-					{
-						"referenceName": "DS_SALESFORCE_PRODUCT",
-						"type": "DatasetReference"
-					}
-				],
-				"outputs": [
-					{
-						"referenceName": "DS_SQLDB_PRODUCT",
-						"type": "DatasetReference"
-					}
-				]
-			},
-			{
 				"name": "ACT_CPY_OPPORTUNITY_FIELD_HISTORY",
 				"type": "Copy",
 				"dependsOn": [
@@ -159,30 +112,6 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": "SELECT * FROM [dbo].[SalesForceControlTable] WHERE [SourceObject] = 'OPPORTUNITY'",
-						"queryTimeout": "02:00:00"
-					},
-					"dataset": {
-						"referenceName": "DS_SQLDB_CONTROL",
-						"type": "DatasetReference"
-					}
-				}
-			},
-			{
-				"name": "LOOKUP_CONTROL_PRODUCT",
-				"type": "Lookup",
-				"dependsOn": [],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"source": {
-						"type": "AzureSqlSource",
-						"sqlReaderQuery": "SELECT * FROM [dbo].[SalesForceControlTable] WHERE [SourceObject] = 'PRODUCT'",
 						"queryTimeout": "02:00:00"
 					},
 					"dataset": {
@@ -286,46 +215,6 @@
 						},
 						"Object": {
 							"value": "USER",
-							"type": "String"
-						}
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "LS_SQLDB",
-					"type": "LinkedServiceReference"
-				}
-			},
-			{
-				"name": "UPDATE_CONTROL_PRODUCT",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [
-					{
-						"activity": "ACT_CPY_PRODUCT",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[dbo].[SalesForceControlProc]",
-					"storedProcedureParameters": {
-						"LastModifiedtime": {
-							"value": {
-								"value": "@formatDateTime(utcnow(), 'yyyy-MM-ddTHH:mm:ssZ')",
-								"type": "Expression"
-							},
-							"type": "DateTime"
-						},
-						"Object": {
-							"value": "PRODUCT",
 							"type": "String"
 						}
 					}
