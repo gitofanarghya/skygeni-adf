@@ -214,7 +214,7 @@
 							"type": "DateTime"
 						},
 						"Object": {
-							"value": "USER",
+							"value": "OPPORTUNITY_FIELD_HISTORY",
 							"type": "String"
 						}
 					}
