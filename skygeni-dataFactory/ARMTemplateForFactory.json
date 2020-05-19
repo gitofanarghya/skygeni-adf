@@ -509,7 +509,7 @@
 				"schema": [],
 				"typeProperties": {
 					"schema": "dbo",
-					"table": "OPPORTUNITY"
+					"table": "STG_OPPORTUNITY"
 				}
 			},
 			"dependsOn": [
