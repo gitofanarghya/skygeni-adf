@@ -9,8 +9,8 @@
 		"type": "AzureSqlTable",
 		"schema": [],
 		"typeProperties": {
-			"schema": "C0001",
-			"table": "STG_OPPORTUNITY"
+			"schema": "C0002",
+			"table": "CHURNED_OPP_WITH_HISTORY"
 		}
 	}
 }
