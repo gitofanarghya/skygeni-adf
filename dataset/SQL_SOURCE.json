@@ -324,7 +324,7 @@
 		],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": "CHURNED_OPP_WITH_HISTORY"
+			"table": "CHURNED_OPP_FIELD_HISTORY"
 		}
 	}
 }
