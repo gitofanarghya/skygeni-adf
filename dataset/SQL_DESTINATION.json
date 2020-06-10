@@ -10,7 +10,7 @@
 		"schema": [],
 		"typeProperties": {
 			"schema": "C0001",
-			"table": "REP_TEAM_MAPPING"
+			"table": "STAGES"
 		}
 	}
 }
