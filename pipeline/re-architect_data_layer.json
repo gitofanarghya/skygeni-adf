@@ -19,11 +19,21 @@
 						"type": "AzureSqlSource",
 						"queryTimeout": "02:00:00"
 					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"tableOption": "autoCreate"
+					},
 					"enableStaging": false
 				},
 				"inputs": [
 					{
 						"referenceName": "SQL_CLEO_CHURNED_OPP_WITH_HISTORY",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SQL_CLEO_DESTINATION_CHURNED_OPP_WITH_HISTORY",
 						"type": "DatasetReference"
 					}
 				]

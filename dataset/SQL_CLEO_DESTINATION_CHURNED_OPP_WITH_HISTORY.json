@@ -1,0 +1,16 @@
+{
+	"name": "SQL_CLEO_DESTINATION_CHURNED_OPP_WITH_HISTORY",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SQL_DB_CLEO",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "C0001",
+			"table": "CHURNED_OPP_WITH_HISTORY"
+		}
+	}
+}
