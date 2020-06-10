@@ -324,7 +324,7 @@
 		],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": "REP_TEAM_MAPPING"
+			"table": "STAGES"
 		}
 	}
 }
