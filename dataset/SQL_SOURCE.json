@@ -1,5 +1,5 @@
 {
-	"name": "SQL_CLEO_CHURNED_OPP_WITH_HISTORY",
+	"name": "SQL_SOURCE",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "LS_SQLDB",
