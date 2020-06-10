@@ -10,7 +10,7 @@
 		"schema": [],
 		"typeProperties": {
 			"schema": "C0002",
-			"table": "CHURNED_OPP_WITH_HISTORY"
+			"table": "CHURNED_OPP_FIELD_HISTORY"
 		}
 	}
 }
