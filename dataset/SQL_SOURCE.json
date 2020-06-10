@@ -324,7 +324,7 @@
 		],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": "SalesForceControlTable"
+			"table": "STG_OPPORTUNITY"
 		}
 	}
 }
