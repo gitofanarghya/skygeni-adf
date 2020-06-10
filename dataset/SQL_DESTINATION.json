@@ -10,7 +10,7 @@
 		"schema": [],
 		"typeProperties": {
 			"schema": "C0001",
-			"table": "STG_CONTROL_TABLE"
+			"table": "STG_OPPORTUNITY"
 		}
 	}
 }
