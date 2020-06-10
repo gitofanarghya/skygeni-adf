@@ -27,7 +27,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "SQL_CLEO_CHURNED_OPP_WITH_HISTORY",
+						"referenceName": "SQL_SOURCE",
 						"type": "DatasetReference"
 					}
 				],
