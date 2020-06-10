@@ -33,7 +33,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "SQL_CLEO_DESTINATION_CHURNED_OPP_WITH_HISTORY",
+						"referenceName": "SQL_DESTINATION",
 						"type": "DatasetReference"
 					}
 				]
