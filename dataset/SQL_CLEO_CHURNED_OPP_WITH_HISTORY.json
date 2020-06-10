@@ -1,0 +1,330 @@
+{
+	"name": "SQL_CLEO_CHURNED_OPP_WITH_HISTORY",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SQLDB",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "id",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "oppid",
+				"type": "nvarchar"
+			},
+			{
+				"name": "accountcode",
+				"type": "nvarchar"
+			},
+			{
+				"name": "owner",
+				"type": "nvarchar"
+			},
+			{
+				"name": "accountname",
+				"type": "nvarchar"
+			},
+			{
+				"name": "oppname",
+				"type": "nvarchar"
+			},
+			{
+				"name": "partner",
+				"type": "nvarchar"
+			},
+			{
+				"name": "type",
+				"type": "nvarchar"
+			},
+			{
+				"name": "custtype",
+				"type": "nvarchar"
+			},
+			{
+				"name": "cicpackage",
+				"type": "nvarchar"
+			},
+			{
+				"name": "solution_cat",
+				"type": "nvarchar"
+			},
+			{
+				"name": "sales_offering",
+				"type": "nvarchar"
+			},
+			{
+				"name": "amount",
+				"type": "nvarchar"
+			},
+			{
+				"name": "acv",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "elv",
+				"type": "nvarchar"
+			},
+			{
+				"name": "tcv",
+				"type": "nvarchar"
+			},
+			{
+				"name": "services_amount",
+				"type": "nvarchar"
+			},
+			{
+				"name": "services_type",
+				"type": "nvarchar"
+			},
+			{
+				"name": "stage",
+				"type": "nvarchar"
+			},
+			{
+				"name": "fiscal_period",
+				"type": "nvarchar"
+			},
+			{
+				"name": "age",
+				"type": "nvarchar"
+			},
+			{
+				"name": "created_date",
+				"type": "datetime2",
+				"scale": 7
+			},
+			{
+				"name": "close_date",
+				"type": "datetime2",
+				"scale": 7
+			},
+			{
+				"name": "campaign_source",
+				"type": "nvarchar"
+			},
+			{
+				"name": "source",
+				"type": "nvarchar"
+			},
+			{
+				"name": "annual_rev",
+				"type": "nvarchar"
+			},
+			{
+				"name": "industry",
+				"type": "nvarchar"
+			},
+			{
+				"name": "segment",
+				"type": "nvarchar"
+			},
+			{
+				"name": "micro_seg",
+				"type": "nvarchar"
+			},
+			{
+				"name": "sec_industry",
+				"type": "nvarchar"
+			},
+			{
+				"name": "expected_rev",
+				"type": "nvarchar"
+			},
+			{
+				"name": "owner_role",
+				"type": "nvarchar"
+			},
+			{
+				"name": "lead_src",
+				"type": "nvarchar"
+			},
+			{
+				"name": "owner_profile",
+				"type": "nvarchar"
+			},
+			{
+				"name": "owner_active",
+				"type": "nvarchar"
+			},
+			{
+				"name": "owner_manager",
+				"type": "nvarchar"
+			},
+			{
+				"name": "stage_duration",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "last_stage_change",
+				"type": "nvarchar"
+			},
+			{
+				"name": "last_modified",
+				"type": "nvarchar"
+			},
+			{
+				"name": "region",
+				"type": "nvarchar"
+			},
+			{
+				"name": "acv_at_creation",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "stage_at_time_T",
+				"type": "nvarchar"
+			},
+			{
+				"name": "acv_at_time_T",
+				"type": "nvarchar"
+			},
+			{
+				"name": "start_stage",
+				"type": "nvarchar"
+			},
+			{
+				"name": "targeted",
+				"type": "nvarchar"
+			},
+			{
+				"name": "suspect",
+				"type": "nvarchar"
+			},
+			{
+				"name": "qualified",
+				"type": "nvarchar"
+			},
+			{
+				"name": "proposed",
+				"type": "nvarchar"
+			},
+			{
+				"name": "selected",
+				"type": "nvarchar"
+			},
+			{
+				"name": "committed",
+				"type": "nvarchar"
+			},
+			{
+				"name": "closed_won",
+				"type": "nvarchar"
+			},
+			{
+				"name": "closed_lost",
+				"type": "nvarchar"
+			},
+			{
+				"name": "closed_won_noorder",
+				"type": "nvarchar"
+			},
+			{
+				"name": "closed_disqualified",
+				"type": "nvarchar"
+			},
+			{
+				"name": "no_history_available",
+				"type": "nvarchar"
+			},
+			{
+				"name": "current_status",
+				"type": "nvarchar"
+			},
+			{
+				"name": "final_stage_for_closed",
+				"type": "nvarchar"
+			},
+			{
+				"name": "closed_date",
+				"type": "datetime2",
+				"scale": 7
+			},
+			{
+				"name": "closed_month",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "closed_quarter",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "closed_year",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "cycle_time_closed_orders",
+				"type": "nvarchar"
+			},
+			{
+				"name": "elapsed_days_open_orders",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Created_Month",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Created_Quarter",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Created_Year",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Type_Services",
+				"type": "nvarchar"
+			},
+			{
+				"name": "sales_offering_VAN",
+				"type": "nvarchar"
+			},
+			{
+				"name": "solution_cat_CIC_Secure_Fax",
+				"type": "nvarchar"
+			},
+			{
+				"name": "oppname_has_RUNRATE",
+				"type": "nvarchar"
+			},
+			{
+				"name": "oppname_has_SUPPORT",
+				"type": "nvarchar"
+			},
+			{
+				"name": "oppname_has_RENEWAL",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Exclude_Opp_from_Analysis",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Closed_Fiscal_Quarter",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Created_Fiscal_Quarter",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "CHURNED_OPP_WITH_HISTORY"
+		}
+	}
+}
