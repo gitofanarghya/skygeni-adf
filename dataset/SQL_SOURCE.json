@@ -324,7 +324,7 @@
 		],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": "CHURNED_OPP_WITH_HISTORY"
+			"table": "REP_TEAM_MAPPING"
 		}
 	}
 }
