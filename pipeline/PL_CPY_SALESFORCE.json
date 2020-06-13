@@ -124,7 +124,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"storedProcedureName": {
-						"value": "@{pipeline().parameters.schema}.salesForceControlProc",
+						"value": "dbo.salesForceControlProc",
 						"type": "Expression"
 					},
 					"storedProcedureParameters": {
@@ -136,7 +136,10 @@
 							"type": "DateTime"
 						},
 						"Object": {
-							"value": "OPPORTUNITY",
+							"value": {
+								"value": "@pipeline().parameters.table",
+								"type": "Expression"
+							},
 							"type": "String"
 						}
 					}
