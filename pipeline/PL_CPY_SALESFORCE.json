@@ -124,7 +124,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"storedProcedureName": {
-						"value": "@{pipeline().parameters.schema}.STG_CONTROL_TABLE",
+						"value": "@{pipeline().parameters.schema}.salesForceControlProc",
 						"type": "Expression"
 					},
 					"storedProcedureParameters": {
