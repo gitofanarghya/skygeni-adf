@@ -89,7 +89,13 @@
 					},
 					"dataset": {
 						"referenceName": "DS_SQLDB_CONTROL",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"schema": {
+								"value": "@pipeline().parameters.schema",
+								"type": "Expression"
+							}
+						}
 					}
 				}
 			},
