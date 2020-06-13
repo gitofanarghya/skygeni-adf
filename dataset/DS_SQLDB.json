@@ -1,5 +1,5 @@
 {
-	"name": "DS_SQLDB_OPPORTUNITY",
+	"name": "DS_SQLDB",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "LS_SQLDB",
