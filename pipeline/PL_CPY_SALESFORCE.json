@@ -111,7 +111,10 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "SELECT * FROM [dbo].[SalesForceControlTable] WHERE [SourceObject] = 'OPPORTUNITY'",
+						"sqlReaderQuery": {
+							"value": "@SELECT * FROM [pipeline().parameters.schema].[SalesForceControlTable] WHERE [SourceObject] = 'OPPORTUNITY'",
+							"type": "Expression"
+						},
 						"queryTimeout": "02:00:00"
 					},
 					"dataset": {
@@ -340,6 +343,10 @@
 			"schema": {
 				"type": "string",
 				"defaultValue": "C0001"
+			},
+			"object": {
+				"type": "string",
+				"defaultValue": "OPPORTUNITY"
 			}
 		},
 		"annotations": []
