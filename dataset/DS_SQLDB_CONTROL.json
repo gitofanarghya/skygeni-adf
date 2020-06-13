@@ -5,12 +5,21 @@
 			"referenceName": "LS_SQLDB",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"schema": {
+				"type": "string",
+				"defaultValue": "C0001"
+			}
+		},
 		"annotations": [],
 		"type": "AzureSqlTable",
 		"schema": [],
 		"typeProperties": {
-			"schema": "dbo",
-			"table": "SalesForceControlTable"
+			"schema": {
+				"value": "@dataset().schema",
+				"type": "Expression"
+			},
+			"table": "STG_CONTROL_TABLE"
 		}
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
