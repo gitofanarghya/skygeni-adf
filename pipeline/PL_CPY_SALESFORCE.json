@@ -33,7 +33,7 @@
 					"sink": {
 						"type": "AzureSqlSink",
 						"preCopyScript": {
-							"value": "DELETE from [@{pipeline().parameters.schema}].[STG_{pipeline().parameters.table}]",
+							"value": "DELETE from [@{pipeline().parameters.schema}].[STG_@{pipeline().parameters.table}]",
 							"type": "Expression"
 						},
 						"tableOption": "autoCreate",
