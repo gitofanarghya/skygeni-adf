@@ -5,11 +5,20 @@
 			"referenceName": "LS_SALESFORCE_DS",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"objectName": {
+				"type": "string",
+				"defaultValue": "Opportunity"
+			}
+		},
 		"annotations": [],
 		"type": "SalesforceObject",
 		"schema": [],
 		"typeProperties": {
-			"objectApiName": "Opportunity"
+			"objectApiName": {
+				"value": "@dataset().objectName",
+				"type": "Expression"
+			}
 		}
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
