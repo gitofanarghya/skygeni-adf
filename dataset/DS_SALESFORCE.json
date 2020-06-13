@@ -1,5 +1,5 @@
 {
-	"name": "DS_SALESFORCE_OPPORTUNITY",
+	"name": "DS_SALESFORCE",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "LS_SALESFORCE_DS",
