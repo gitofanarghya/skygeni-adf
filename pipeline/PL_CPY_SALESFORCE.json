@@ -82,7 +82,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "SELECT * FROM [@pipeline().parameters.schema].[STG_CONTROL_TABLE] WHERE [SourceObject] = pipeline().parameters.table",
+							"value": "SELECT * FROM [@{pipeline().parameters.schema}].[STG_CONTROL_TABLE] WHERE [SourceObject] = @{pipeline().parameters.table}",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00"
