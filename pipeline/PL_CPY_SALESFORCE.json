@@ -141,6 +141,13 @@
 								"type": "Expression"
 							},
 							"type": "String"
+						},
+						"schema": {
+							"value": {
+								"value": "@pipeline().parameters.schema",
+								"type": "Expression"
+							},
+							"type": "String"
 						}
 					}
 				},
