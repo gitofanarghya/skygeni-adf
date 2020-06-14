@@ -172,7 +172,7 @@
 			},
 			"query": {
 				"type": "string",
-				"defaultValue": "SELECT Id, IsDeleted, OpportunityId, CreatedById, CreatedDate, Field, OldValue, NewValue from OpportunityFieldHistory where CreatedDate >"
+				"defaultValue": "SELECT Id, IsDeleted, OpportunityId, CreatedById, CreatedDate, Field, OldValue, NewValue from OpportunityFieldHistory where CreatedDate > "
 			}
 		},
 		"annotations": []
