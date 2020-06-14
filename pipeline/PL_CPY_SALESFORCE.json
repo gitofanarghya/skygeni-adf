@@ -125,13 +125,6 @@
 						"type": "Expression"
 					},
 					"storedProcedureParameters": {
-						"LastModifiedtime": {
-							"value": {
-								"value": "@formatDateTime(utcnow(), 'yyyy-MM-ddTHH:mm:ssZ')",
-								"type": "Expression"
-							},
-							"type": "DateTime"
-						},
 						"Object": {
 							"value": {
 								"value": "@pipeline().parameters.table",
