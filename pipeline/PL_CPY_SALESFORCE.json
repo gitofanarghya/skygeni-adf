@@ -25,7 +25,7 @@
 					"source": {
 						"type": "SalesforceSource",
 						"query": {
-							"value": "@pipeline().parameters.query",
+							"value": "concat(@pipeline().parameters.query,@{formatDateTime(activity('LOOKUP_CONTROL').output.firstRow.LastLoadDate,'yyyy-MM-ddTHH:mm:ssZ')})",
 							"type": "Expression"
 						},
 						"readBehavior": "query"
@@ -172,7 +172,7 @@
 			},
 			"query": {
 				"type": "string",
-				"defaultValue": "SELECT Id, IsDeleted, OpportunityId, CreatedById, CreatedDate, Field, OldValue, NewValue from OpportunityFieldHistory where CreatedDate > @{formatDateTime(activity('LOOKUP_CONTROL').output.firstRow.LastLoadDate,'yyyy-MM-ddTHH:mm:ssZ')}"
+				"defaultValue": "SELECT Id, IsDeleted, OpportunityId, CreatedById, CreatedDate, Field, OldValue, NewValue from OpportunityFieldHistory where CreatedDate >"
 			}
 		},
 		"annotations": []
