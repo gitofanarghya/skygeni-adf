@@ -32,6 +32,7 @@
 					},
 					"sink": {
 						"type": "AzureSqlSink",
+						"preCopyScript": "DELETE from [@{pipeline().parameters.schema}].[STG_@{pipeline().parameters.table}]",
 						"tableOption": "autoCreate",
 						"disableMetricsCollection": false
 					},
@@ -126,7 +127,7 @@
 					"storedProcedureParameters": {
 						"LastModifiedtime": {
 							"value": {
-								"value": "@formatDateTime(utcnow(), 'yyyy-MM-ddTHH:mm:ssZ')",
+								"value": "@formatDateTime(utcnow(), 'yyyy-MM-ddTHH:mm:ss')",
 								"type": "Expression"
 							},
 							"type": "DateTime"
