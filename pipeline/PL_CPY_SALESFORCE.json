@@ -127,7 +127,7 @@
 					"storedProcedureParameters": {
 						"LastModifiedtime": {
 							"value": {
-								"value": "@'{formatDateTime(utcnow(), 'yyyy-MM-ddTHH:mm:ss')}'",
+								"value": "'@{formatDateTime(utcnow(), 'yyyy-MM-ddTHH:mm:ss')}'",
 								"type": "Expression"
 							},
 							"type": "DateTime"
