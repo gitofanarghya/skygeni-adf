@@ -161,15 +161,15 @@
 			},
 			"table": {
 				"type": "string",
-				"defaultValue": "OPPORTUNITY_HISTORY"
+				"defaultValue": "OPPORTUNITY_FIELD_HISTORY"
 			},
 			"sfObject": {
 				"type": "string",
-				"defaultValue": "OpportunityHistory"
+				"defaultValue": "OpportunityFieldHistory"
 			},
 			"query": {
 				"type": "string",
-				"defaultValue": "Select Id, OpportunityId, CreatedById, CreatedDate, StageName, Amount, ExpectedRevenue, CloseDate, Probability, ForecastCategory, SystemModstamp, IsDeleted from OpportunityHistory where SystemModstamp > "
+				"defaultValue": "SELECT Id, IsDeleted, OpportunityId, CreatedById, CreatedDate, Field, OldValue, NewValue from @{pipeline().parameters.sfObject} where CreatedDate > "
 			}
 		},
 		"annotations": []
