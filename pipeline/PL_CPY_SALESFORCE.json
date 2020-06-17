@@ -138,6 +138,13 @@
 								"type": "Expression"
 							},
 							"type": "String"
+						},
+						"lastLoadTime": {
+							"value": {
+								"value": "@pipeline().TriggerTime",
+								"type": "Expression"
+							},
+							"type": "Datetime"
 						}
 					}
 				},
