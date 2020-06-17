@@ -141,7 +141,7 @@
 						},
 						"lastLoadTime": {
 							"value": {
-								"value": "@formatDateTime(pipeline().TriggerTime, 'yyyy-MM-dd HH:mm:ss')",
+								"value": "@concat('''', formatDateTime(pipeline().TriggerTime, 'yyyy-MM-dd HH:mm:ss'), '''')",
 								"type": "Expression"
 							},
 							"type": "Datetime"
