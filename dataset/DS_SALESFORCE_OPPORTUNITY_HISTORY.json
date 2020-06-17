@@ -9,7 +9,7 @@
 		"type": "SalesforceObject",
 		"schema": [],
 		"typeProperties": {
-			"objectApiName": "OpportunityHistory"
+			"objectApiName": "EventFeed"
 		}
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
