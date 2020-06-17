@@ -141,10 +141,10 @@
 						},
 						"lastLoadTime": {
 							"value": {
-								"value": "@concat('''', formatDateTime(pipeline().TriggerTime, 'yyyy-MM-dd HH:mm:ss'), '''')",
+								"value": "@concat('''', pipeline().TriggerTime, '''')",
 								"type": "Expression"
 							},
-							"type": "Datetime"
+							"type": "String"
 						}
 					}
 				},
