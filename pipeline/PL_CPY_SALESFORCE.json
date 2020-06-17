@@ -127,7 +127,7 @@
 					"storedProcedureParameters": {
 						"Object": {
 							"value": {
-								"value": "@concat(''', pipeline().parameters.table, ''')",
+								"value": "@concat('\"', pipeline().parameters.table, '\"')",
 								"type": "Expression"
 							},
 							"type": "String"
