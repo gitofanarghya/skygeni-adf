@@ -32,7 +32,10 @@
 					},
 					"sink": {
 						"type": "AzureSqlSink",
-						"preCopyScript": "DELETE from [@{pipeline().parameters.schema}].[STG_@{pipeline().parameters.table}]",
+						"preCopyScript": {
+							"value": "DELETE from [@{pipeline().parameters.schema}].[STG_@{pipeline().parameters.table}]",
+							"type": "Expression"
+						},
 						"tableOption": "autoCreate",
 						"disableMetricsCollection": false
 					},
@@ -154,15 +157,15 @@
 			},
 			"table": {
 				"type": "string",
-				"defaultValue": "OPPORTUNITY_FIELD_HISTORY"
+				"defaultValue": "OPPORTUNITY_HISTORY"
 			},
 			"sfObject": {
 				"type": "string",
-				"defaultValue": "OpportunityFieldHistory"
+				"defaultValue": "OpportunityHistory"
 			},
 			"query": {
 				"type": "string",
-				"defaultValue": "SELECT Id, IsDeleted, OpportunityId, CreatedById, CreatedDate, Field, OldValue, NewValue from OpportunityFieldHistory where CreatedDate > "
+				"defaultValue": "Select Id, OpportunityId, CreatedById, CreatedDate, StageName, Amount, ExpectedRevenue, CloseDate, Probability, ForecastCategory, SystemModstamp, IsDeleted from OpportunityHistory where SystemModstamp > "
 			}
 		},
 		"annotations": []
