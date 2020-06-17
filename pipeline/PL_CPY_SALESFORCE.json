@@ -32,6 +32,7 @@
 					},
 					"sink": {
 						"type": "AzureSqlSink",
+						"preCopyScript": "DELETE from [@{pipeline().parameters.schema}].[STG_@{pipeline().parameters.table}]",
 						"tableOption": "autoCreate",
 						"disableMetricsCollection": false
 					},
@@ -126,7 +127,7 @@
 					"storedProcedureParameters": {
 						"Object": {
 							"value": {
-								"value": "@'pipeline().parameters.table'",
+								"value": "@pipeline().parameters.table",
 								"type": "Expression"
 							},
 							"type": "String"
