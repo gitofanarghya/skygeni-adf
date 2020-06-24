@@ -32,7 +32,6 @@
 					},
 					"sink": {
 						"type": "AzureSqlSink",
-						"preCopyScript": "DELETE from [@{pipeline().parameters.schema}].[STG_@{pipeline().parameters.table}]",
 						"tableOption": "autoCreate",
 						"disableMetricsCollection": false
 					},
