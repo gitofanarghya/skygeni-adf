@@ -2,7 +2,7 @@
 	"name": "DS_SALESFORCE",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "LS_SALESFORCE_MS",
+			"referenceName": "LS_SALESFORCE_DS",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {

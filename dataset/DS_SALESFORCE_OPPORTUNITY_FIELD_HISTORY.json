@@ -2,14 +2,14 @@
 	"name": "DS_SALESFORCE_OPPORTUNITY_FIELD_HISTORY",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "LS_SALESFORCE_DS",
+			"referenceName": "LS_SALESFORCE_MS",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
 		"type": "SalesforceObject",
 		"schema": [],
 		"typeProperties": {
-			"objectApiName": "OpportunityFieldHistory"
+			"objectApiName": "OpportunityHistory"
 		}
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
