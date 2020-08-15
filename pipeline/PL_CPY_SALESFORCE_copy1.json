@@ -1,0 +1,80 @@
+{
+	"name": "PL_CPY_SALESFORCE_copy1",
+	"properties": {
+		"activities": [
+			{
+				"name": "ACT_CPY",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SalesforceSource",
+						"query": {
+							"value": "Select Id, Username, LastName, FirstName, Name, Email, from User",
+							"type": "Expression"
+						},
+						"readBehavior": "query"
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_SALESFORCE",
+						"type": "DatasetReference",
+						"parameters": {
+							"objectName": {
+								"value": "@pipeline().parameters.sfObject",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_SQLDB",
+						"type": "DatasetReference",
+						"parameters": {
+							"schema": {
+								"value": "@pipeline().parameters.schema",
+								"type": "Expression"
+							},
+							"table": {
+								"value": "STG_@{pipeline().parameters.table}",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"schema": {
+				"type": "string",
+				"defaultValue": "C0001"
+			},
+			"table": {
+				"type": "string",
+				"defaultValue": "USER_TEMP_DO_NOT_REFER"
+			},
+			"sfObject": {
+				"type": "string",
+				"defaultValue": "User"
+			}
+		},
+		"annotations": []
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
