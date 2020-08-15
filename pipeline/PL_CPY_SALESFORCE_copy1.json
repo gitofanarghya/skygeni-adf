@@ -18,7 +18,7 @@
 					"source": {
 						"type": "SalesforceSource",
 						"query": {
-							"value": "Select Id, Username, LastName, FirstName, Name, Email, from User",
+							"value": "Select Id, Username, LastName, FirstName, Name, Email from User",
 							"type": "Expression"
 						},
 						"readBehavior": "query"
