@@ -3,7 +3,21 @@
 	"properties": {
 		"annotations": [],
 		"runtimeState": "Started",
-		"pipelines": [],
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "PL_CPY_SALESFORCE_CLEO_V2",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"schema": "C0001",
+					"table": "USER",
+					"sfObject": "User",
+					"query": "Select Id, Username, Name, CompanyName, Division, Department, Title, IsActive, TimeZoneSidKey, UserRoleId, ManagerId, LastLoginDate, CreatedDate, LastModifiedDate, SystemModstamp from User where LastModifiedDate > ",
+					"column": "LastModifiedDate"
+				}
+			}
+		],
 		"type": "ScheduleTrigger",
 		"typeProperties": {
 			"recurrence": {
