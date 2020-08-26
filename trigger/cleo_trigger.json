@@ -3,7 +3,19 @@
 	"properties": {
 		"annotations": [],
 		"runtimeState": "Started",
-		"pipelines": [],
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "PL_CPY_SALESFORCE_CLEO_V2",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"schema": "C0001",
+					"table": "OPPORTUNITY",
+					"sfObject": "Opportunity"
+				}
+			}
+		],
 		"type": "ScheduleTrigger",
 		"typeProperties": {
 			"recurrence": {
