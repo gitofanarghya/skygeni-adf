@@ -65,10 +65,6 @@
 			"table": {
 				"type": "string",
 				"defaultValue": "USER_TEMP_DO_NOT_REFER"
-			},
-			"sfObject": {
-				"type": "string",
-				"defaultValue": "User"
 			}
 		},
 		"annotations": []
