@@ -6,6 +6,126 @@
 			"type": "string",
 			"metadata": "Data Factory name",
 			"defaultValue": "skygeni-dataFactory"
+		},
+		"cleo_extract_stg_account_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema": {
+			"type": "string",
+			"defaultValue": "C0001"
+		},
+		"cleo_extract_stg_account_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table": {
+			"type": "string",
+			"defaultValue": "ACCOUNT"
+		},
+		"cleo_extract_stg_account_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject": {
+			"type": "string",
+			"defaultValue": "Account"
+		},
+		"cleo_extract_stg_account_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query": {
+			"type": "string",
+			"defaultValue": "SELECT Id,Name,Type,AnnualRevenue,NumberOfEmployees,AccountCode__c,Account_Owner_Name__c,OwnerId,CreatedDate,CreatedById,LastModifiedDate from Account where LastModifiedDate > "
+		},
+		"cleo_extract_stg_account_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column": {
+			"type": "string",
+			"defaultValue": "LastModifiedDate"
+		},
+		"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema": {
+			"type": "string",
+			"defaultValue": "C0001"
+		},
+		"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table": {
+			"type": "string",
+			"defaultValue": "USER"
+		},
+		"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject": {
+			"type": "string",
+			"defaultValue": "User"
+		},
+		"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query": {
+			"type": "string",
+			"defaultValue": "Select Id, Username, Name, CompanyName, Division, Department, Title, IsActive, TimeZoneSidKey, UserRoleId, ManagerId, LastLoginDate, CreatedDate, LastModifiedDate, SystemModstamp from User where LastModifiedDate > "
+		},
+		"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column": {
+			"type": "string",
+			"defaultValue": "LastModifiedDate"
+		},
+		"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema": {
+			"type": "string",
+			"defaultValue": "C0001"
+		},
+		"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table": {
+			"type": "string",
+			"defaultValue": "ROLE"
+		},
+		"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject": {
+			"type": "string",
+			"defaultValue": "UserRole"
+		},
+		"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query": {
+			"type": "string",
+			"defaultValue": "SELECT Id, Name, ParentRoleId, RollupDescription, LastModifiedDate, SystemModstamp, DeveloperName from UserRole where LastModifiedDate >"
+		},
+		"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column": {
+			"type": "string",
+			"defaultValue": "LastModifiedDate"
+		},
+		"cleo_extract_stg_opp_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema": {
+			"type": "string",
+			"defaultValue": "C0001"
+		},
+		"cleo_extract_stg_opp_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table": {
+			"type": "string",
+			"defaultValue": "OPPORTUNITY"
+		},
+		"cleo_extract_stg_opp_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject": {
+			"type": "string",
+			"defaultValue": "Opportunity"
+		},
+		"cleo_extract_stg_opp_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query": {
+			"type": "string",
+			"defaultValue": "select Id, AccountId, OwnerId, Name, Type, Customer_Type__c, CIC_Package__c, Solution_Category__c, Sales_Products__c, Amount, Annual_Contract_Value__c, Total_Contract_Value__c, Equivalent_License_Value__c, Professional_Services_Amt__c, StageName, Stage_Master__c, Probability, CreatedDate, CloseDate, Industry__c, Segment__c, Micro_Segment__c, Sub_Industry__c, Region__c, Services_Type__c, CampaignId, Source__c, ExpectedRevenue, LeadSource, IsClosed, IsWon, ForecastCategory, ForecastCategoryName, HasOpportunityLineItem, Disqualified_Reason__c, CreatedById, Created_By_BDR__c, Created_by_AM__c, Created_by_CSM__c, Historical_Owner_Role__c, Fiscal, LastActivityDate, LastModifiedDate, LastModifiedById, SystemModstamp from Opportunity where LastModifiedDate > "
+		},
+		"cleo_extract_stg_opp_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column": {
+			"type": "string",
+			"defaultValue": "LastModifiedDate"
+		},
+		"cleo_extract_stg_opp_field_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema": {
+			"type": "string",
+			"defaultValue": "C0001"
+		},
+		"cleo_extract_stg_opp_field_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table": {
+			"type": "string",
+			"defaultValue": "OPPORTUNITY_FIELD_HISTORY"
+		},
+		"cleo_extract_stg_opp_field_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject": {
+			"type": "string",
+			"defaultValue": "OpportunityFieldHistory"
+		},
+		"cleo_extract_stg_opp_field_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query": {
+			"type": "string",
+			"defaultValue": "select Id,IsDeleted,OpportunityId,CreatedById,CreatedDate,Field,OldValue,NewValue from  OpportunityFieldHistory where CreatedDate > "
+		},
+		"cleo_extract_stg_opp_field_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column": {
+			"type": "string",
+			"defaultValue": "CreatedDate"
+		},
+		"cleo_extract_stg_opp_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema": {
+			"type": "string",
+			"defaultValue": "C0001"
+		},
+		"cleo_extract_stg_opp_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table": {
+			"type": "string",
+			"defaultValue": "OPPORTUNITY_HISTORY"
+		},
+		"cleo_extract_stg_opp_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject": {
+			"type": "string",
+			"defaultValue": "OpportunityHistory"
+		},
+		"cleo_extract_stg_opp_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query": {
+			"type": "string",
+			"defaultValue": "select Id,OpportunityId,CreatedById,CreatedDate,StageName,Amount,ExpectedRevenue,CloseDate,Probability,ForecastCategory,SystemModstamp,IsDeleted from OpportunityHistory where CreatedDate > "
+		},
+		"cleo_extract_stg_opp_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column": {
+			"type": "string",
+			"defaultValue": "CreatedDate"
 		}
 	},
 	"variables": {
@@ -447,6 +567,270 @@
 				"annotations": []
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/cleo_extract_stg_account')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "PL_CPY_SALESFORCE_CLEO_V2",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"schema": "[parameters('cleo_extract_stg_account_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema')]",
+							"table": "[parameters('cleo_extract_stg_account_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table')]",
+							"sfObject": "[parameters('cleo_extract_stg_account_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject')]",
+							"query": "[parameters('cleo_extract_stg_account_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query')]",
+							"column": "[parameters('cleo_extract_stg_account_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column')]"
+						}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Day",
+						"interval": 1,
+						"startTime": "2020-08-26T18:40:00.000Z",
+						"timeZone": "UTC",
+						"schedule": {
+							"minutes": [
+								30
+							],
+							"hours": [
+								21
+							]
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/PL_CPY_SALESFORCE_CLEO_V2')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/cleo_extract_stg_user')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "PL_CPY_SALESFORCE_CLEO_V2",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"schema": "[parameters('cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema')]",
+							"table": "[parameters('cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table')]",
+							"sfObject": "[parameters('cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject')]",
+							"query": "[parameters('cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query')]",
+							"column": "[parameters('cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column')]"
+						}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Day",
+						"interval": 1,
+						"startTime": "2020-08-26T18:50:00.000Z",
+						"timeZone": "UTC",
+						"schedule": {
+							"minutes": [
+								30
+							],
+							"hours": [
+								21
+							]
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/PL_CPY_SALESFORCE_CLEO_V2')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/cleo_extract_stg_role')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "PL_CPY_SALESFORCE_CLEO_V2",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"schema": "[parameters('cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema')]",
+							"table": "[parameters('cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table')]",
+							"sfObject": "[parameters('cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject')]",
+							"query": "[parameters('cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query')]",
+							"column": "[parameters('cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column')]"
+						}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Day",
+						"interval": 1,
+						"startTime": "2020-08-26T18:51:00.000Z",
+						"timeZone": "UTC",
+						"schedule": {
+							"minutes": [
+								30
+							],
+							"hours": [
+								21
+							]
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/PL_CPY_SALESFORCE_CLEO_V2')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/cleo_extract_stg_opp')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "PL_CPY_SALESFORCE_CLEO_V2",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"schema": "[parameters('cleo_extract_stg_opp_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema')]",
+							"table": "[parameters('cleo_extract_stg_opp_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table')]",
+							"sfObject": "[parameters('cleo_extract_stg_opp_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject')]",
+							"query": "[parameters('cleo_extract_stg_opp_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query')]",
+							"column": "[parameters('cleo_extract_stg_opp_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column')]"
+						}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Day",
+						"interval": 1,
+						"startTime": "2020-08-26T18:51:00.000Z",
+						"timeZone": "UTC",
+						"schedule": {
+							"minutes": [
+								30
+							],
+							"hours": [
+								21
+							]
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/PL_CPY_SALESFORCE_CLEO_V2')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/cleo_extract_stg_opp_field_history')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "PL_CPY_SALESFORCE_CLEO_V2",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"schema": "[parameters('cleo_extract_stg_opp_field_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema')]",
+							"table": "[parameters('cleo_extract_stg_opp_field_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table')]",
+							"sfObject": "[parameters('cleo_extract_stg_opp_field_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject')]",
+							"query": "[parameters('cleo_extract_stg_opp_field_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query')]",
+							"column": "[parameters('cleo_extract_stg_opp_field_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column')]"
+						}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Day",
+						"interval": 1,
+						"startTime": "2020-08-26T18:52:00.000Z",
+						"timeZone": "UTC",
+						"schedule": {
+							"minutes": [
+								30
+							],
+							"hours": [
+								21
+							]
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/PL_CPY_SALESFORCE_CLEO_V2')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/cleo_extract_stg_opp_history')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "PL_CPY_SALESFORCE_CLEO_V2",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"schema": "[parameters('cleo_extract_stg_opp_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema')]",
+							"table": "[parameters('cleo_extract_stg_opp_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table')]",
+							"sfObject": "[parameters('cleo_extract_stg_opp_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject')]",
+							"query": "[parameters('cleo_extract_stg_opp_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query')]",
+							"column": "[parameters('cleo_extract_stg_opp_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column')]"
+						}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Day",
+						"interval": 1,
+						"startTime": "2020-08-26T18:52:00.000Z",
+						"timeZone": "UTC",
+						"schedule": {
+							"minutes": [
+								30
+							],
+							"hours": [
+								21
+							]
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/PL_CPY_SALESFORCE_CLEO_V2')]"
+			]
 		}
 	]
 }

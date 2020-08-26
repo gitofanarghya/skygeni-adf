@@ -34,6 +34,96 @@
 		},
 		"LS_SALESFORCE_MS_properties_typeProperties_username": {
 			"value": "sankar.sundaresan@skygeni.com"
+		},
+		"cleo_extract_stg_account_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema": {
+			"value": "C0001"
+		},
+		"cleo_extract_stg_account_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table": {
+			"value": "ACCOUNT"
+		},
+		"cleo_extract_stg_account_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject": {
+			"value": "Account"
+		},
+		"cleo_extract_stg_account_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query": {
+			"value": "SELECT Id,Name,Type,AnnualRevenue,NumberOfEmployees,AccountCode__c,Account_Owner_Name__c,OwnerId,CreatedDate,CreatedById,LastModifiedDate from Account where LastModifiedDate > "
+		},
+		"cleo_extract_stg_account_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column": {
+			"value": "LastModifiedDate"
+		},
+		"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema": {
+			"value": "C0001"
+		},
+		"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table": {
+			"value": "USER"
+		},
+		"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject": {
+			"value": "User"
+		},
+		"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query": {
+			"value": "Select Id, Username, Name, CompanyName, Division, Department, Title, IsActive, TimeZoneSidKey, UserRoleId, ManagerId, LastLoginDate, CreatedDate, LastModifiedDate, SystemModstamp from User where LastModifiedDate > "
+		},
+		"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column": {
+			"value": "LastModifiedDate"
+		},
+		"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema": {
+			"value": "C0001"
+		},
+		"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table": {
+			"value": "ROLE"
+		},
+		"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject": {
+			"value": "UserRole"
+		},
+		"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query": {
+			"value": "SELECT Id, Name, ParentRoleId, RollupDescription, LastModifiedDate, SystemModstamp, DeveloperName from UserRole where LastModifiedDate >"
+		},
+		"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column": {
+			"value": "LastModifiedDate"
+		},
+		"cleo_extract_stg_opp_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema": {
+			"value": "C0001"
+		},
+		"cleo_extract_stg_opp_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table": {
+			"value": "OPPORTUNITY"
+		},
+		"cleo_extract_stg_opp_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject": {
+			"value": "Opportunity"
+		},
+		"cleo_extract_stg_opp_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query": {
+			"value": "select Id, AccountId, OwnerId, Name, Type, Customer_Type__c, CIC_Package__c, Solution_Category__c, Sales_Products__c, Amount, Annual_Contract_Value__c, Total_Contract_Value__c, Equivalent_License_Value__c, Professional_Services_Amt__c, StageName, Stage_Master__c, Probability, CreatedDate, CloseDate, Industry__c, Segment__c, Micro_Segment__c, Sub_Industry__c, Region__c, Services_Type__c, CampaignId, Source__c, ExpectedRevenue, LeadSource, IsClosed, IsWon, ForecastCategory, ForecastCategoryName, HasOpportunityLineItem, Disqualified_Reason__c, CreatedById, Created_By_BDR__c, Created_by_AM__c, Created_by_CSM__c, Historical_Owner_Role__c, Fiscal, LastActivityDate, LastModifiedDate, LastModifiedById, SystemModstamp from Opportunity where LastModifiedDate > "
+		},
+		"cleo_extract_stg_opp_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column": {
+			"value": "LastModifiedDate"
+		},
+		"cleo_extract_stg_opp_field_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema": {
+			"value": "C0001"
+		},
+		"cleo_extract_stg_opp_field_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table": {
+			"value": "OPPORTUNITY_FIELD_HISTORY"
+		},
+		"cleo_extract_stg_opp_field_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject": {
+			"value": "OpportunityFieldHistory"
+		},
+		"cleo_extract_stg_opp_field_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query": {
+			"value": "select Id,IsDeleted,OpportunityId,CreatedById,CreatedDate,Field,OldValue,NewValue from  OpportunityFieldHistory where CreatedDate > "
+		},
+		"cleo_extract_stg_opp_field_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column": {
+			"value": "CreatedDate"
+		},
+		"cleo_extract_stg_opp_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema": {
+			"value": "C0001"
+		},
+		"cleo_extract_stg_opp_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table": {
+			"value": "OPPORTUNITY_HISTORY"
+		},
+		"cleo_extract_stg_opp_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject": {
+			"value": "OpportunityHistory"
+		},
+		"cleo_extract_stg_opp_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query": {
+			"value": "select Id,OpportunityId,CreatedById,CreatedDate,StageName,Amount,ExpectedRevenue,CloseDate,Probability,ForecastCategory,SystemModstamp,IsDeleted from OpportunityHistory where CreatedDate > "
+		},
+		"cleo_extract_stg_opp_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column": {
+			"value": "CreatedDate"
 		}
 	}
 }

@@ -47,6 +47,126 @@
 			"type": "string",
 			"defaultValue": "sankar.sundaresan@skygeni.com"
 		},
+		"cleo_extract_stg_account_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema": {
+			"type": "string",
+			"defaultValue": "C0001"
+		},
+		"cleo_extract_stg_account_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table": {
+			"type": "string",
+			"defaultValue": "ACCOUNT"
+		},
+		"cleo_extract_stg_account_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject": {
+			"type": "string",
+			"defaultValue": "Account"
+		},
+		"cleo_extract_stg_account_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query": {
+			"type": "string",
+			"defaultValue": "SELECT Id,Name,Type,AnnualRevenue,NumberOfEmployees,AccountCode__c,Account_Owner_Name__c,OwnerId,CreatedDate,CreatedById,LastModifiedDate from Account where LastModifiedDate > "
+		},
+		"cleo_extract_stg_account_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column": {
+			"type": "string",
+			"defaultValue": "LastModifiedDate"
+		},
+		"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema": {
+			"type": "string",
+			"defaultValue": "C0001"
+		},
+		"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table": {
+			"type": "string",
+			"defaultValue": "USER"
+		},
+		"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject": {
+			"type": "string",
+			"defaultValue": "User"
+		},
+		"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query": {
+			"type": "string",
+			"defaultValue": "Select Id, Username, Name, CompanyName, Division, Department, Title, IsActive, TimeZoneSidKey, UserRoleId, ManagerId, LastLoginDate, CreatedDate, LastModifiedDate, SystemModstamp from User where LastModifiedDate > "
+		},
+		"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column": {
+			"type": "string",
+			"defaultValue": "LastModifiedDate"
+		},
+		"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema": {
+			"type": "string",
+			"defaultValue": "C0001"
+		},
+		"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table": {
+			"type": "string",
+			"defaultValue": "ROLE"
+		},
+		"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject": {
+			"type": "string",
+			"defaultValue": "UserRole"
+		},
+		"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query": {
+			"type": "string",
+			"defaultValue": "SELECT Id, Name, ParentRoleId, RollupDescription, LastModifiedDate, SystemModstamp, DeveloperName from UserRole where LastModifiedDate >"
+		},
+		"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column": {
+			"type": "string",
+			"defaultValue": "LastModifiedDate"
+		},
+		"cleo_extract_stg_opp_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema": {
+			"type": "string",
+			"defaultValue": "C0001"
+		},
+		"cleo_extract_stg_opp_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table": {
+			"type": "string",
+			"defaultValue": "OPPORTUNITY"
+		},
+		"cleo_extract_stg_opp_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject": {
+			"type": "string",
+			"defaultValue": "Opportunity"
+		},
+		"cleo_extract_stg_opp_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query": {
+			"type": "string",
+			"defaultValue": "select Id, AccountId, OwnerId, Name, Type, Customer_Type__c, CIC_Package__c, Solution_Category__c, Sales_Products__c, Amount, Annual_Contract_Value__c, Total_Contract_Value__c, Equivalent_License_Value__c, Professional_Services_Amt__c, StageName, Stage_Master__c, Probability, CreatedDate, CloseDate, Industry__c, Segment__c, Micro_Segment__c, Sub_Industry__c, Region__c, Services_Type__c, CampaignId, Source__c, ExpectedRevenue, LeadSource, IsClosed, IsWon, ForecastCategory, ForecastCategoryName, HasOpportunityLineItem, Disqualified_Reason__c, CreatedById, Created_By_BDR__c, Created_by_AM__c, Created_by_CSM__c, Historical_Owner_Role__c, Fiscal, LastActivityDate, LastModifiedDate, LastModifiedById, SystemModstamp from Opportunity where LastModifiedDate > "
+		},
+		"cleo_extract_stg_opp_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column": {
+			"type": "string",
+			"defaultValue": "LastModifiedDate"
+		},
+		"cleo_extract_stg_opp_field_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema": {
+			"type": "string",
+			"defaultValue": "C0001"
+		},
+		"cleo_extract_stg_opp_field_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table": {
+			"type": "string",
+			"defaultValue": "OPPORTUNITY_FIELD_HISTORY"
+		},
+		"cleo_extract_stg_opp_field_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject": {
+			"type": "string",
+			"defaultValue": "OpportunityFieldHistory"
+		},
+		"cleo_extract_stg_opp_field_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query": {
+			"type": "string",
+			"defaultValue": "select Id,IsDeleted,OpportunityId,CreatedById,CreatedDate,Field,OldValue,NewValue from  OpportunityFieldHistory where CreatedDate > "
+		},
+		"cleo_extract_stg_opp_field_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column": {
+			"type": "string",
+			"defaultValue": "CreatedDate"
+		},
+		"cleo_extract_stg_opp_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema": {
+			"type": "string",
+			"defaultValue": "C0001"
+		},
+		"cleo_extract_stg_opp_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table": {
+			"type": "string",
+			"defaultValue": "OPPORTUNITY_HISTORY"
+		},
+		"cleo_extract_stg_opp_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject": {
+			"type": "string",
+			"defaultValue": "OpportunityHistory"
+		},
+		"cleo_extract_stg_opp_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query": {
+			"type": "string",
+			"defaultValue": "select Id,OpportunityId,CreatedById,CreatedDate,StageName,Amount,ExpectedRevenue,CloseDate,Probability,ForecastCategory,SystemModstamp,IsDeleted from OpportunityHistory where CreatedDate > "
+		},
+		"cleo_extract_stg_opp_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column": {
+			"type": "string",
+			"defaultValue": "CreatedDate"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -121,6 +241,96 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"cleo_extract_stg_account_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema": {
+						"value": "[parameters('cleo_extract_stg_account_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema')]"
+					},
+					"cleo_extract_stg_account_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table": {
+						"value": "[parameters('cleo_extract_stg_account_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table')]"
+					},
+					"cleo_extract_stg_account_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject": {
+						"value": "[parameters('cleo_extract_stg_account_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject')]"
+					},
+					"cleo_extract_stg_account_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query": {
+						"value": "[parameters('cleo_extract_stg_account_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query')]"
+					},
+					"cleo_extract_stg_account_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column": {
+						"value": "[parameters('cleo_extract_stg_account_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column')]"
+					},
+					"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema": {
+						"value": "[parameters('cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema')]"
+					},
+					"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table": {
+						"value": "[parameters('cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table')]"
+					},
+					"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject": {
+						"value": "[parameters('cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject')]"
+					},
+					"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query": {
+						"value": "[parameters('cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query')]"
+					},
+					"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column": {
+						"value": "[parameters('cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column')]"
+					},
+					"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema": {
+						"value": "[parameters('cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema')]"
+					},
+					"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table": {
+						"value": "[parameters('cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table')]"
+					},
+					"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject": {
+						"value": "[parameters('cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject')]"
+					},
+					"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query": {
+						"value": "[parameters('cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query')]"
+					},
+					"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column": {
+						"value": "[parameters('cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column')]"
+					},
+					"cleo_extract_stg_opp_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema": {
+						"value": "[parameters('cleo_extract_stg_opp_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema')]"
+					},
+					"cleo_extract_stg_opp_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table": {
+						"value": "[parameters('cleo_extract_stg_opp_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table')]"
+					},
+					"cleo_extract_stg_opp_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject": {
+						"value": "[parameters('cleo_extract_stg_opp_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject')]"
+					},
+					"cleo_extract_stg_opp_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query": {
+						"value": "[parameters('cleo_extract_stg_opp_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query')]"
+					},
+					"cleo_extract_stg_opp_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column": {
+						"value": "[parameters('cleo_extract_stg_opp_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column')]"
+					},
+					"cleo_extract_stg_opp_field_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema": {
+						"value": "[parameters('cleo_extract_stg_opp_field_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema')]"
+					},
+					"cleo_extract_stg_opp_field_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table": {
+						"value": "[parameters('cleo_extract_stg_opp_field_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table')]"
+					},
+					"cleo_extract_stg_opp_field_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject": {
+						"value": "[parameters('cleo_extract_stg_opp_field_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject')]"
+					},
+					"cleo_extract_stg_opp_field_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query": {
+						"value": "[parameters('cleo_extract_stg_opp_field_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query')]"
+					},
+					"cleo_extract_stg_opp_field_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column": {
+						"value": "[parameters('cleo_extract_stg_opp_field_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column')]"
+					},
+					"cleo_extract_stg_opp_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema": {
+						"value": "[parameters('cleo_extract_stg_opp_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema')]"
+					},
+					"cleo_extract_stg_opp_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table": {
+						"value": "[parameters('cleo_extract_stg_opp_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table')]"
+					},
+					"cleo_extract_stg_opp_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject": {
+						"value": "[parameters('cleo_extract_stg_opp_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject')]"
+					},
+					"cleo_extract_stg_opp_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query": {
+						"value": "[parameters('cleo_extract_stg_opp_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query')]"
+					},
+					"cleo_extract_stg_opp_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column": {
+						"value": "[parameters('cleo_extract_stg_opp_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column')]"
 					}
 				}
 			},
