@@ -6,46 +6,6 @@
 			"type": "string",
 			"metadata": "Data Factory name",
 			"defaultValue": "skygeni-dataFactory"
-		},
-		"LS_SALESFORCE_DS_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'LS_SALESFORCE_DS'"
-		},
-		"LS_SALESFORCE_DS_securityToken": {
-			"type": "secureString",
-			"metadata": "Secure string for 'securityToken' of 'LS_SALESFORCE_DS'"
-		},
-		"LS_SALESFORCE_MS_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'LS_SALESFORCE_MS'"
-		},
-		"LS_SALESFORCE_MS_securityToken": {
-			"type": "secureString",
-			"metadata": "Secure string for 'securityToken' of 'LS_SALESFORCE_MS'"
-		},
-		"LS_SQLDB_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'LS_SQLDB'"
-		},
-		"LS_SQL_DB_CLEO_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'LS_SQL_DB_CLEO'"
-		},
-		"LS_SALESFORCE_DS_properties_typeProperties_environmentUrl": {
-			"type": "string",
-			"defaultValue": "https://login.salesforce.com"
-		},
-		"LS_SALESFORCE_DS_properties_typeProperties_username": {
-			"type": "string",
-			"defaultValue": "api@cleo.com"
-		},
-		"LS_SALESFORCE_MS_properties_typeProperties_environmentUrl": {
-			"type": "string",
-			"defaultValue": "https://login.salesforce.com"
-		},
-		"LS_SALESFORCE_MS_properties_typeProperties_username": {
-			"type": "string",
-			"defaultValue": "sankar.sundaresan@skygeni.com"
 		}
 	},
 	"variables": {
@@ -233,8 +193,7 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DS_SALESFORCE')]",
 				"[concat(variables('factoryId'), '/datasets/DS_SQLDB')]",
-				"[concat(variables('factoryId'), '/datasets/DS_SQLDB_CONTROL')]",
-				"[concat(variables('factoryId'), '/linkedServices/LS_SQLDB')]"
+				"[concat(variables('factoryId'), '/datasets/DS_SQLDB_CONTROL')]"
 			]
 		},
 		{
@@ -422,8 +381,7 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DS_SALESFORCE')]",
 				"[concat(variables('factoryId'), '/datasets/DS_SQLDB')]",
-				"[concat(variables('factoryId'), '/datasets/DS_SQLDB_CONTROL')]",
-				"[concat(variables('factoryId'), '/linkedServices/LS_SQLDB')]"
+				"[concat(variables('factoryId'), '/datasets/DS_SQLDB_CONTROL')]"
 			]
 		},
 		{
@@ -604,8 +562,7 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DS_SALESFORCE_METRICSTREAM')]",
 				"[concat(variables('factoryId'), '/datasets/DS_SQLDB')]",
-				"[concat(variables('factoryId'), '/datasets/DS_SQLDB_CONTROL')]",
-				"[concat(variables('factoryId'), '/linkedServices/LS_SQLDB')]"
+				"[concat(variables('factoryId'), '/datasets/DS_SQLDB_CONTROL')]"
 			]
 		},
 		{
@@ -719,15 +676,13 @@
 						"inputs": [
 							{
 								"referenceName": "SQL_SOURCE",
-								"type": "DatasetReference",
-								"parameters": {}
+								"type": "DatasetReference"
 							}
 						],
 						"outputs": [
 							{
 								"referenceName": "SQL_DESTINATION",
-								"type": "DatasetReference",
-								"parameters": {}
+								"type": "DatasetReference"
 							}
 						]
 					}
@@ -838,26 +793,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DS_SALESFORCE_PRODUCT')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "LS_SALESFORCE_DS",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "SalesforceObject",
-				"schema": [],
-				"typeProperties": {
-					"objectApiName": "Product2"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_SALESFORCE_DS')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/DS_SQLDB')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -890,9 +825,7 @@
 					}
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_SQLDB')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/DS_SQLDB_CONTROL')]",
@@ -920,72 +853,7 @@
 					"table": "STG_CONTROL_TABLE"
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_SQLDB')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DS_SQLDB_OPPORTUNITY_FIELD_HISTORY')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "LS_SQLDB",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [],
-				"typeProperties": {
-					"schema": "dbo",
-					"table": "STG_OPPORTUNITY_FIELD_HISTORY"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_SQLDB')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DS_SQLDB_OPPORTUNITY_HISTORY')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "LS_SQLDB",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [],
-				"typeProperties": {
-					"schema": "dbo",
-					"table": "STG_OPPORTUNITY_HISTORY"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_SQLDB')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DS_SQLDB_PRODUCT')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "LS_SQLDB",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [],
-				"typeProperties": {
-					"schema": "dbo",
-					"table": "CLEO_PRODUCT"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_SQLDB')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/SQL_DESTINATION')]",
@@ -1004,9 +872,7 @@
 					"table": "STAGES"
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_SQL_DB_CLEO')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/SQL_SOURCE')]",
@@ -1339,9 +1205,7 @@
 					"table": "STAGES"
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_SQLDB')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/LS_SALESFORCE_DS')]",
@@ -1351,15 +1215,15 @@
 				"annotations": [],
 				"type": "Salesforce",
 				"typeProperties": {
-					"environmentUrl": "[parameters('LS_SALESFORCE_DS_properties_typeProperties_environmentUrl')]",
-					"username": "[parameters('LS_SALESFORCE_DS_properties_typeProperties_username')]",
+					"environmentUrl": "https://login.salesforce.com",
+					"username": "api@cleo.com",
 					"password": {
 						"type": "SecureString",
-						"value": "[parameters('LS_SALESFORCE_DS_password')]"
+						"value": "**********"
 					},
 					"securityToken": {
 						"type": "SecureString",
-						"value": "[parameters('LS_SALESFORCE_DS_securityToken')]"
+						"value": "**********"
 					}
 				},
 				"connectVia": {
@@ -1367,9 +1231,7 @@
 					"type": "IntegrationRuntimeReference"
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/integrationRuntimes/salesforce-IR')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/LS_SALESFORCE_MS')]",
@@ -1379,77 +1241,20 @@
 				"annotations": [],
 				"type": "Salesforce",
 				"typeProperties": {
-					"environmentUrl": "[parameters('LS_SALESFORCE_MS_properties_typeProperties_environmentUrl')]",
-					"username": "[parameters('LS_SALESFORCE_MS_properties_typeProperties_username')]",
+					"environmentUrl": "https://login.salesforce.com",
+					"username": "sankar.sundaresan@skygeni.com",
 					"password": {
 						"type": "SecureString",
-						"value": "[parameters('LS_SALESFORCE_MS_password')]"
+						"value": "**********"
 					},
 					"securityToken": {
 						"type": "SecureString",
-						"value": "[parameters('LS_SALESFORCE_MS_securityToken')]"
+						"value": "**********"
 					}
 				},
 				"connectVia": {
 					"referenceName": "salesforce-IR",
 					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/integrationRuntimes/salesforce-IR')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/LS_SQLDB')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureSqlDatabase",
-				"typeProperties": {
-					"connectionString": "[parameters('LS_SQLDB_connectionString')]"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/LS_SQL_DB_CLEO')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureSqlDatabase",
-				"typeProperties": {
-					"connectionString": "[parameters('LS_SQL_DB_CLEO_connectionString')]"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/anarghyaLocal')]",
-			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "SelfHosted",
-				"typeProperties": {}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/salesforce-IR')]",
-			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "Managed",
-				"typeProperties": {
-					"computeProperties": {
-						"location": "East US",
-						"dataFlowProperties": {
-							"computeType": "General",
-							"coreCount": 8,
-							"timeToLive": 0
-						}
-					}
 				}
 			},
 			"dependsOn": []

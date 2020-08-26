@@ -15,9 +15,21 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'securityToken' of 'LS_SALESFORCE_DS'"
 		},
+		"LS_SALESFORCE_MS_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'LS_SALESFORCE_MS'"
+		},
+		"LS_SALESFORCE_MS_securityToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'securityToken' of 'LS_SALESFORCE_MS'"
+		},
 		"LS_SQLDB_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'LS_SQLDB'"
+		},
+		"LS_SQL_DB_CLEO_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LS_SQL_DB_CLEO'"
 		},
 		"LS_SALESFORCE_DS_properties_typeProperties_environmentUrl": {
 			"type": "string",
@@ -26,6 +38,14 @@
 		"LS_SALESFORCE_DS_properties_typeProperties_username": {
 			"type": "string",
 			"defaultValue": "api@cleo.com"
+		},
+		"LS_SALESFORCE_MS_properties_typeProperties_environmentUrl": {
+			"type": "string",
+			"defaultValue": "https://login.salesforce.com"
+		},
+		"LS_SALESFORCE_MS_properties_typeProperties_username": {
+			"type": "string",
+			"defaultValue": "sankar.sundaresan@skygeni.com"
 		},
 		"containerUri": {
 			"type": "string",
@@ -41,7 +61,7 @@
 	},
 	"resources": [
 		{
-			"name": "ArmTemplate_0",
+			"name": "skygeni-dataFactory_ArmTemplate_0",
 			"type": "Microsoft.Resources/deployments",
 			"apiVersion": "2018-02-01",
 			"properties": {
@@ -57,21 +77,56 @@
 					"LS_SQLDB_connectionString": {
 						"value": "[parameters('LS_SQLDB_connectionString')]"
 					},
+					"LS_SQL_DB_CLEO_connectionString": {
+						"value": "[parameters('LS_SQL_DB_CLEO_connectionString')]"
+					},
 					"LS_SALESFORCE_DS_password": {
 						"value": "[parameters('LS_SALESFORCE_DS_password')]"
 					},
 					"LS_SALESFORCE_DS_securityToken": {
 						"value": "[parameters('LS_SALESFORCE_DS_securityToken')]"
 					},
+					"LS_SALESFORCE_MS_password": {
+						"value": "[parameters('LS_SALESFORCE_MS_password')]"
+					},
+					"LS_SALESFORCE_MS_securityToken": {
+						"value": "[parameters('LS_SALESFORCE_MS_securityToken')]"
+					},
 					"LS_SALESFORCE_DS_properties_typeProperties_environmentUrl": {
 						"value": "[parameters('LS_SALESFORCE_DS_properties_typeProperties_environmentUrl')]"
 					},
 					"LS_SALESFORCE_DS_properties_typeProperties_username": {
 						"value": "[parameters('LS_SALESFORCE_DS_properties_typeProperties_username')]"
+					},
+					"LS_SALESFORCE_MS_properties_typeProperties_environmentUrl": {
+						"value": "[parameters('LS_SALESFORCE_MS_properties_typeProperties_environmentUrl')]"
+					},
+					"LS_SALESFORCE_MS_properties_typeProperties_username": {
+						"value": "[parameters('LS_SALESFORCE_MS_properties_typeProperties_username')]"
 					}
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "skygeni-dataFactory_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'skygeni-dataFactory_ArmTemplate_0')]"
+			]
 		}
 	]
 }

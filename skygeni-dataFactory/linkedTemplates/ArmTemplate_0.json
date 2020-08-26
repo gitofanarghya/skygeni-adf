@@ -11,6 +11,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'LS_SQLDB'"
 		},
+		"LS_SQL_DB_CLEO_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LS_SQL_DB_CLEO'"
+		},
 		"LS_SALESFORCE_DS_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'LS_SALESFORCE_DS'"
@@ -19,6 +23,14 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'securityToken' of 'LS_SALESFORCE_DS'"
 		},
+		"LS_SALESFORCE_MS_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'LS_SALESFORCE_MS'"
+		},
+		"LS_SALESFORCE_MS_securityToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'securityToken' of 'LS_SALESFORCE_MS'"
+		},
 		"LS_SALESFORCE_DS_properties_typeProperties_environmentUrl": {
 			"type": "string",
 			"defaultValue": "https://login.salesforce.com"
@@ -26,6 +38,14 @@
 		"LS_SALESFORCE_DS_properties_typeProperties_username": {
 			"type": "string",
 			"defaultValue": "api@cleo.com"
+		},
+		"LS_SALESFORCE_MS_properties_typeProperties_environmentUrl": {
+			"type": "string",
+			"defaultValue": "https://login.salesforce.com"
+		},
+		"LS_SALESFORCE_MS_properties_typeProperties_username": {
+			"type": "string",
+			"defaultValue": "sankar.sundaresan@skygeni.com"
 		}
 	},
 	"variables": {
@@ -41,6 +61,19 @@
 				"type": "AzureSqlDatabase",
 				"typeProperties": {
 					"connectionString": "[parameters('LS_SQLDB_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_SQL_DB_CLEO')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('LS_SQL_DB_CLEO_connectionString')]"
 				}
 			},
 			"dependsOn": []
@@ -75,6 +108,43 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/DS_SQLDB')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_SQLDB",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"schema": {
+						"type": "string",
+						"defaultValue": "C0001"
+					},
+					"table": {
+						"type": "string",
+						"defaultValue": "STG_OPPORTUNITY"
+					}
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": {
+						"value": "@dataset().schema",
+						"type": "Expression"
+					},
+					"table": {
+						"value": "@dataset().table",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_SQLDB')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/DS_SQLDB_CONTROL')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -83,12 +153,21 @@
 					"referenceName": "LS_SQLDB",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"schema": {
+						"type": "string",
+						"defaultValue": "C0001"
+					}
+				},
 				"annotations": [],
 				"type": "AzureSqlTable",
 				"schema": [],
 				"typeProperties": {
-					"schema": "dbo",
-					"table": "SalesForceControlTable"
+					"schema": {
+						"value": "@dataset().schema",
+						"type": "Expression"
+					},
+					"table": "STG_CONTROL_TABLE"
 				}
 			},
 			"dependsOn": [
@@ -96,7 +175,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DS_SQLDB_OPPORTUNITY')]",
+			"name": "[concat(parameters('factoryName'), '/DS_SQLDB_OPPORTUNITY_FIELD_HISTORY')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -109,7 +188,7 @@
 				"schema": [],
 				"typeProperties": {
 					"schema": "dbo",
-					"table": "STG_OPPORTUNITY"
+					"table": "STG_OPPORTUNITY_FIELD_HISTORY"
 				}
 			},
 			"dependsOn": [
@@ -159,7 +238,28 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DS_SQLDB_OPPORTUNITY_FIELD_HISTORY')]",
+			"name": "[concat(parameters('factoryName'), '/SQL_DESTINATION')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_SQL_DB_CLEO",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "C0002",
+					"table": "STAGES"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_SQL_DB_CLEO')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SQL_SOURCE')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -169,10 +269,324 @@
 				},
 				"annotations": [],
 				"type": "AzureSqlTable",
-				"schema": [],
+				"schema": [
+					{
+						"name": "id",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "oppid",
+						"type": "nvarchar"
+					},
+					{
+						"name": "accountcode",
+						"type": "nvarchar"
+					},
+					{
+						"name": "owner",
+						"type": "nvarchar"
+					},
+					{
+						"name": "accountname",
+						"type": "nvarchar"
+					},
+					{
+						"name": "oppname",
+						"type": "nvarchar"
+					},
+					{
+						"name": "partner",
+						"type": "nvarchar"
+					},
+					{
+						"name": "type",
+						"type": "nvarchar"
+					},
+					{
+						"name": "custtype",
+						"type": "nvarchar"
+					},
+					{
+						"name": "cicpackage",
+						"type": "nvarchar"
+					},
+					{
+						"name": "solution_cat",
+						"type": "nvarchar"
+					},
+					{
+						"name": "sales_offering",
+						"type": "nvarchar"
+					},
+					{
+						"name": "amount",
+						"type": "nvarchar"
+					},
+					{
+						"name": "acv",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "elv",
+						"type": "nvarchar"
+					},
+					{
+						"name": "tcv",
+						"type": "nvarchar"
+					},
+					{
+						"name": "services_amount",
+						"type": "nvarchar"
+					},
+					{
+						"name": "services_type",
+						"type": "nvarchar"
+					},
+					{
+						"name": "stage",
+						"type": "nvarchar"
+					},
+					{
+						"name": "fiscal_period",
+						"type": "nvarchar"
+					},
+					{
+						"name": "age",
+						"type": "nvarchar"
+					},
+					{
+						"name": "created_date",
+						"type": "datetime2",
+						"scale": 7
+					},
+					{
+						"name": "close_date",
+						"type": "datetime2",
+						"scale": 7
+					},
+					{
+						"name": "campaign_source",
+						"type": "nvarchar"
+					},
+					{
+						"name": "source",
+						"type": "nvarchar"
+					},
+					{
+						"name": "annual_rev",
+						"type": "nvarchar"
+					},
+					{
+						"name": "industry",
+						"type": "nvarchar"
+					},
+					{
+						"name": "segment",
+						"type": "nvarchar"
+					},
+					{
+						"name": "micro_seg",
+						"type": "nvarchar"
+					},
+					{
+						"name": "sec_industry",
+						"type": "nvarchar"
+					},
+					{
+						"name": "expected_rev",
+						"type": "nvarchar"
+					},
+					{
+						"name": "owner_role",
+						"type": "nvarchar"
+					},
+					{
+						"name": "lead_src",
+						"type": "nvarchar"
+					},
+					{
+						"name": "owner_profile",
+						"type": "nvarchar"
+					},
+					{
+						"name": "owner_active",
+						"type": "nvarchar"
+					},
+					{
+						"name": "owner_manager",
+						"type": "nvarchar"
+					},
+					{
+						"name": "stage_duration",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "last_stage_change",
+						"type": "nvarchar"
+					},
+					{
+						"name": "last_modified",
+						"type": "nvarchar"
+					},
+					{
+						"name": "region",
+						"type": "nvarchar"
+					},
+					{
+						"name": "acv_at_creation",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "stage_at_time_T",
+						"type": "nvarchar"
+					},
+					{
+						"name": "acv_at_time_T",
+						"type": "nvarchar"
+					},
+					{
+						"name": "start_stage",
+						"type": "nvarchar"
+					},
+					{
+						"name": "targeted",
+						"type": "nvarchar"
+					},
+					{
+						"name": "suspect",
+						"type": "nvarchar"
+					},
+					{
+						"name": "qualified",
+						"type": "nvarchar"
+					},
+					{
+						"name": "proposed",
+						"type": "nvarchar"
+					},
+					{
+						"name": "selected",
+						"type": "nvarchar"
+					},
+					{
+						"name": "committed",
+						"type": "nvarchar"
+					},
+					{
+						"name": "closed_won",
+						"type": "nvarchar"
+					},
+					{
+						"name": "closed_lost",
+						"type": "nvarchar"
+					},
+					{
+						"name": "closed_won_noorder",
+						"type": "nvarchar"
+					},
+					{
+						"name": "closed_disqualified",
+						"type": "nvarchar"
+					},
+					{
+						"name": "no_history_available",
+						"type": "nvarchar"
+					},
+					{
+						"name": "current_status",
+						"type": "nvarchar"
+					},
+					{
+						"name": "final_stage_for_closed",
+						"type": "nvarchar"
+					},
+					{
+						"name": "closed_date",
+						"type": "datetime2",
+						"scale": 7
+					},
+					{
+						"name": "closed_month",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "closed_quarter",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "closed_year",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "cycle_time_closed_orders",
+						"type": "nvarchar"
+					},
+					{
+						"name": "elapsed_days_open_orders",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Created_Month",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Created_Quarter",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Created_Year",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Type_Services",
+						"type": "nvarchar"
+					},
+					{
+						"name": "sales_offering_VAN",
+						"type": "nvarchar"
+					},
+					{
+						"name": "solution_cat_CIC_Secure_Fax",
+						"type": "nvarchar"
+					},
+					{
+						"name": "oppname_has_RUNRATE",
+						"type": "nvarchar"
+					},
+					{
+						"name": "oppname_has_SUPPORT",
+						"type": "nvarchar"
+					},
+					{
+						"name": "oppname_has_RENEWAL",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Exclude_Opp_from_Analysis",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Closed_Fiscal_Quarter",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Created_Fiscal_Quarter",
+						"type": "nvarchar"
+					}
+				],
 				"typeProperties": {
 					"schema": "dbo",
-					"table": "STG_OPPORTUNITY_FIELD_HISTORY"
+					"table": "STAGES"
 				}
 			},
 			"dependsOn": [
@@ -208,7 +622,88 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DS_SALESFORCE_OPPORTUNITY')]",
+			"name": "[concat(parameters('factoryName'), '/LS_SALESFORCE_MS')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "Salesforce",
+				"typeProperties": {
+					"environmentUrl": "[parameters('LS_SALESFORCE_MS_properties_typeProperties_environmentUrl')]",
+					"username": "[parameters('LS_SALESFORCE_MS_properties_typeProperties_username')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('LS_SALESFORCE_MS_password')]"
+					},
+					"securityToken": {
+						"type": "SecureString",
+						"value": "[parameters('LS_SALESFORCE_MS_securityToken')]"
+					}
+				},
+				"connectVia": {
+					"referenceName": "salesforce-IR",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/salesforce-IR')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/re-architect_data_layer')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "copy",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"tableOption": "autoCreate"
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "SQL_SOURCE",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "SQL_DESTINATION",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/SQL_SOURCE')]",
+				"[concat(variables('factoryId'), '/datasets/SQL_DESTINATION')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_SALESFORCE')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -216,15 +711,73 @@
 					"referenceName": "LS_SALESFORCE_DS",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"objectName": {
+						"type": "string",
+						"defaultValue": "Opportunity"
+					}
+				},
 				"annotations": [],
 				"type": "SalesforceObject",
 				"schema": [],
 				"typeProperties": {
-					"objectApiName": "Opportunity"
+					"objectApiName": {
+						"value": "@dataset().objectName",
+						"type": "Expression"
+					}
 				}
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/LS_SALESFORCE_DS')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_SALESFORCE_METRICSTREAM')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_SALESFORCE_MS",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"objectName": {
+						"type": "string",
+						"defaultValue": "Opportunity"
+					}
+				},
+				"annotations": [],
+				"type": "SalesforceObject",
+				"schema": [],
+				"typeProperties": {
+					"objectApiName": {
+						"value": "@dataset().objectName",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_SALESFORCE_MS')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_SALESFORCE_OPPORTUNITY_FIELD_HISTORY')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_SALESFORCE_MS",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "SalesforceObject",
+				"schema": [],
+				"typeProperties": {
+					"objectApiName": "OpportunityHistory"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_SALESFORCE_MS')]"
 			]
 		},
 		{
@@ -240,7 +793,7 @@
 				"type": "SalesforceObject",
 				"schema": [],
 				"typeProperties": {
-					"objectApiName": "OpportunityHistory"
+					"objectApiName": "EventFeed"
 				}
 			},
 			"dependsOn": [
@@ -268,33 +821,13 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DS_SALESFORCE_OPPORTUNITY_FIELD_HISTORY')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "LS_SALESFORCE_DS",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "SalesforceObject",
-				"schema": [],
-				"typeProperties": {
-					"objectApiName": "OpportunityFieldHistory"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_SALESFORCE_DS')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/PL_CPY_SALESFORCE')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "ACT_CPY_OPPORTUNITY",
+						"name": "ACT_CPY",
 						"type": "Copy",
 						"dependsOn": [
 							{
@@ -316,78 +849,44 @@
 							"source": {
 								"type": "SalesforceSource",
 								"query": {
-									"value": "SELECT Id, IsDeleted, AccountId, RecordTypeId, Name, Description, StageName, Amount, Probability, ExpectedRevenue, CloseDate, Type, NextStep, LeadSource, IsClosed, IsWon, ForecastCategory, ForecastCategoryName, CampaignId, HasOpportunityLineItem, Pricebook2Id, OwnerId, Territory2Id, IsExcludedFromTerritory2Filter, CreatedDate, CreatedById, LastModifiedDate, LastModifiedById, SystemModstamp, LastActivityDate, FiscalQuarter, FiscalYear, Fiscal, LastViewedDate, LastReferencedDate, SyncedQuoteId, HasOpenActivity, HasOverdueTask, Contact__c, Self_Service__c, Project_Source__c, Source__c, Forecast_Category__c, Opportunity_External_ID__c, Standard_Start_Date__c, Days_To_Expire__c, Competitor_Name__c, Decision_Date__c, Increase_Increase__c, Invoice_Code__c, Next_Year_End_Date__c, Competing_Against__c, Alt_Bill_To_Street__c, Alt_Bill_To_City__c, Alt_Bill_To_State__c, Alt_Bill_To_Zip__c, Alt_Bill_To_Country__c, Registration_TypeAF__c, Sub_Amount__c, Category__c, Sent_To_Partner__c, Contact_Email__c, Contact_Phone__c, Current_System_List_Price__c, Professional_Services__c, Professional_Services_Amt__c, Ctvt_LdDr_PartnerOwnerUserPhone__c, Ctvt_LdDr_PartnerActionRequired__c, Ctvt_LdDr_VendorOwnerUserName__c, Ctvt_LdDr_PartnerCompanyName__c, Ctvt_LdDr_RegistrationStatus__c, Ctvt_LdDr_PartnerOwnerUserEmail__c, Ctvt_LdDr_PartnerOwnerUserName__c, Ctvt_LdDr_DealTitle__c, Ctvt_LdDr_DealAmount__c, Ctvt_LdDr_VendorActionRequired__c, Ctvt_LdDr_AccountCompanyName__c, Ctvt_LdDr_LastUpdated__c, Ctvt_LdDr_Created__c, Ctvt_LdDr_Link__c, Ctvt_LdDr_DealCloseDate__c, Ctvt_LdDr_Status__c, Ctvt_LdDr_AccountCompanyCity__c, Ctvt_LdDr_AccountCompanyCountry__c, Ctvt_LdDr_AccountContactName__c, Ctvt_LdDr_AccountCompanyState__c, Ctvt_Sys_Exported__c, Ctvt_LdDr_AccountContactEmail__c, Ctvt_LdDr_AccountContactTitle__c, Ctvt_Sys_LastUpdated__c, Ctvt_LdDr_AccountContactPhone__c, Bill_To_Account_Code__c, Account_Domain__c, Current_Support_Level__c, Ctvt_Sys_EntityType__c, Support_Option_1__c, Support_Option_1_Price__c, Support_Option_2__c, Support_Option_2_Price__c, Part_Number__c, Current_Support__c, Support_Option_a__c, Support_Option_b__c, Support_Quantity__c, Customer_Type__c, Invoice_Number__c, Support_Option1_Description__c, Support_Option2_Description__c, Current_Support_Description__c, Ctvt_Sys_URL__c, Why_Cleo__c, Why_do_Something__c, Why_do_Something_Now__c, Key_Deal__c, Ctvt_LdDr_Streem__c, Ctvt_LdDr_CleoTrust__c, Ctvt_LdDr_CleoLexiCom_1__c, Ctvt_LdDr_CleoUnify__c, Ctvt_LdDr_CleoHarmony__c, Ctvt_LdDr_CleoVLTrader__c, Current_Support_Price__c, Tags__c, Priority__c, Created_By_BDR__c, SQO_Status__c, Qualified__c, Owner_Sales_Role__c, Ctvt_AccountOrgStreet__c, Referred_By__c, Microsegment__c, SubscriptionTerms__c, Subscription_Details__c, Translator__c, Total_Contract_Value__c, Annual_Contract_Value__c, Equivalent_License_Value__c, Translator_System__c, Data_Source__c, Ctvt_Stage_1__c, Product_Enhancement_Required__c, Product_Enhancement_Notes__c, PM_Enhancement_Reviewed__c, PM_Enhancement_Notes__c, Proposed__c, Selected__c, Committed__c, Closed_Won__c, Stage_Master__c, Amount_ELV__c, Billing_Frequency__c, SC_Next_Step__c, picPSO_Engagement__c, txtPSO_Notes__c, Age_calculated__c, SubAmount__c, LicAmount__c, Account_Support_Alert__c, TCV_Calc__c, Managed_Services__c, Managed_Services_Amount__c, LID__LinkedIn_Company_Id__c, MSO_Notes__c, MSO_Engagement__c, Cloud_Opportunity__c, Managed_Services_Type__c, Quota_Credit__c, Opportunity_Category__c, Solution_Category__c, Industry__c, Sub_Industry__c, Tertiary_Industry__c, Sales_Segment__c, Region__c, Corporate_Type__c, Professional_Services_Completed_Date__c, Win_Loss_Review_Completed__c, Number_of_Transactions_Annual__c, SOW_Reference_Counter__c, SER_Reference_Counter__c, Historical_Owner_Role__c, Gen_2_Candidate__c, Created_by_AM__c, Created_by_CSM__c, Created_from_AM_Account_Review__c, Created_Month__c, Existing_Perpetual_Support__c, Existing_Subscription__c, Perpetual_License_Purchase__c, Perpetual_Support_1st_Year__c, Perpetual_ACV__c, Average_Annual_Subscription__c, Subscription_ACV__c, Calculated_ACV__c, Invoice_Date__c, Win_Loss_Review__c, Commission_Payment_Term__c, Subscription_Terms__c, Services_Type__c, Services_Type_Details__c, Packaged_Connector_1__c, Packaged_Connector_2__c, Packaged_Connector_3__c, Packaged_Connector_4__c, Packaged_Connector_5__c, Packaged_Connector_Amount_1__c, Packaged_Connector_Amount_2__c, Packaged_Connector_Amount_3__c, Packaged_Connector_Amount_4__c, Packaged_Connector_Amount_5__c, Application_Connector_Included__c, Jetsonic_Included__c, Jetsonic_Value__c, Jetsonic_of_Connections__c, Unify_Included__c, Unify_Value__c, Premium_Dashboards_Included__c, Premium_Dashboards_Value__c, Number_of_Maps__c, Number_of_Base_Maps__c, Number_of_Total_Map_Deployments__c, Services_Quota_Credit_Details__c, Bundled_Services_Value__c, Services_Total__c, Win_Loss_Notes__c, bizible2__Bizible_Opportunity_Amount__c, Sales_Products__c, Expected_ACV__c, Date_Became_Targeted__c, Billing_Partner__c, Prepaid_Support__c, Convert_to_Subscription__c, Upgrade_Perpetual__c, Subscription_Renewal__c, Purchase_Agreement_Required__c, Upgrade_Subscription__c, Disqualified_Next_Steps__c, Disqualified_Reason__c, Gross_ACV__c, Gross_ELV__c, Personas_Identified__c, Sent_to_Proposal_Desk__c, Pending_Edits_Needed__c, Approved__c, Proposal_Status__c, Use_Case__c, Custom_License_Metric__c, Date_Became_Qualified__c, Date_Became_Suspect__c, Credit_Check_Date__c, Credit_Report_Type__c, D_B_Rating__c, D_B_Viability_Rating__c, Finance_Approval_Override__c, Finance_Approval__c, Finance_Notes__c, Finance_Requires__c, credibilityCheckEmailSent__c, LID__Is_Influenced__c, Application_Base_Integration__c, Platform_Connector_1__c, Platform_Connector_2__c, Platform_Connector_3__c, Platform_Connector_4__c, Platform_Connector_5__c, Platform_Connector_Value_1__c, Platform_Connector_Value_2__c, Platform_Connector_Value_3__c, Platform_Connector_Value_4__c, Platform_Connector_Value_5__c, Use_Case_Type__c, Total_Billing__c, Total_Service_Billing__c, Total_Product_Billing__c, Project_Complexity__c, Customer_Technical_Sophistication__c, Reference_Call_By__c, Reference_Call_Account__c, Socialized_Pricing__c, CIC_Package__c, Primary_Competitor__c, Secondary_Competitor__c, Tertiary_Competitor__c, Current_ERP_Vendor__c, Current_ERP_Solution__c, Future_ERP_Vendor__c, Future_ERP_Solution__c, Segment__c, Micro_Segment__c, Secondary_Industry__c, Annual_Revenue__c, Packaged_Connectors__c, Platform_Connectors__c, Contact_GCLID__c, GCLID__c, Date_Became_Selected__c, Date_Became_Committed__c, Date_Became_Closed_Won__c, Date_Became_Closed_Lost__c, Date_Became_Proposed__c, Targeted__c, Suspect__c, Closed_Lost__c, Account_Rank__c, Pricing_Model__c, List_Price__c, Discount_Upsell_Amount__c, Discount_Upsell_Percentage__c, List_Price_Additional_Information__c, List_of_Connections__c, List_of_Transactions_Annual__c from OPPORTUNITY where LastModifiedDate > @{formatDateTime(activity('LOOKUP_CONTROL').output.firstRow.LastLoadDate,'yyyy-MM-ddTHH:mm:ssZ')}",
+									"value": "@concat(pipeline().parameters.query,formatDateTime(activity('LOOKUP_CONTROL').output.firstRow.LastLoadDate,'yyyy-MM-ddTHH:mm:ssZ'))",
 									"type": "Expression"
 								},
 								"readBehavior": "query"
 							},
 							"sink": {
 								"type": "AzureSqlSink",
-								"tableOption": "autoCreate"
+								"tableOption": "autoCreate",
+								"disableMetricsCollection": false
 							},
 							"enableStaging": false
 						},
 						"inputs": [
 							{
-								"referenceName": "DS_SALESFORCE_OPPORTUNITY",
+								"referenceName": "DS_SALESFORCE",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"objectName": {
+										"value": "@pipeline().parameters.sfObject",
+										"type": "Expression"
+									}
+								}
 							}
 						],
 						"outputs": [
 							{
-								"referenceName": "DS_SQLDB_OPPORTUNITY",
+								"referenceName": "DS_SQLDB",
 								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
-					},
-					{
-						"name": "ACT_CPY_OPPORTUNITY_FIELD_HISTORY",
-						"type": "Copy",
-						"dependsOn": [
-							{
-								"activity": "LOOKUP_CONTROL_OPPORTUNITY_FIELD_HISTORY",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "SalesforceSource",
-								"query": {
-									"value": "SELECT Id, IsDeleted, OpportunityId, CreatedById, CreatedDate, Field, OldValue, NewValue from OPPORTUNITYFIELDHISTORY where CreatedDate> @{formatDateTime(activity('LOOKUP_CONTROL_OPPORTUNITY_FIELD_HISTORY').output.firstRow.LastLoadDate,'yyyy-MM-ddTHH:mm:ssZ')}",
-									"type": "Expression"
-								},
-								"readBehavior": "query"
-							},
-							"sink": {
-								"type": "AzureSqlSink",
-								"tableOption": "autoCreate"
-							},
-							"enableStaging": false
-						},
-						"inputs": [
-							{
-								"referenceName": "DS_SALESFORCE_OPPORTUNITY_FIELD_HISTORY",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "DS_SQLDB_OPPORTUNITY_FIELD_HISTORY",
-								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"schema": {
+										"value": "@pipeline().parameters.schema",
+										"type": "Expression"
+									},
+									"table": {
+										"value": "STG_@{pipeline().parameters.table}",
+										"type": "Expression"
+									}
+								}
 							}
 						]
 					},
@@ -406,201 +905,31 @@
 						"typeProperties": {
 							"source": {
 								"type": "AzureSqlSource",
-								"sqlReaderQuery": "SELECT * FROM [dbo].[SalesForceControlTable] WHERE [SourceObject] = 'OPPORTUNITY'",
-								"queryTimeout": "02:00:00"
-							},
-							"dataset": {
-								"referenceName": "DS_SQLDB_CONTROL",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						}
-					},
-					{
-						"name": "LOOKUP_CONTROL_OPPORTUNITY_FIELD_HISTORY",
-						"type": "Lookup",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderQuery": "SELECT * FROM [dbo].[SalesForceControlTable] WHERE [SourceObject] = 'OPPORTUNITY_FIELD_HISTORY'",
-								"queryTimeout": "02:00:00"
-							},
-							"dataset": {
-								"referenceName": "DS_SQLDB_CONTROL",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						}
-					},
-					{
-						"name": "UPDATE_CONTROL_OPPORTUNITY",
-						"type": "SqlServerStoredProcedure",
-						"dependsOn": [
-							{
-								"activity": "ACT_CPY_OPPORTUNITY",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"storedProcedureName": "[[dbo].[SalesForceControlProc]",
-							"storedProcedureParameters": {
-								"LastModifiedtime": {
-									"value": {
-										"value": "@formatDateTime(utcnow(), 'yyyy-MM-ddTHH:mm:ssZ')",
-										"type": "Expression"
-									},
-									"type": "DateTime"
-								},
-								"Object": {
-									"value": "OPPORTUNITY",
-									"type": "String"
-								}
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "LS_SQLDB",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "UPDATE_CONTROL_OPPORTUNITY_FIELD_HISTORY",
-						"type": "SqlServerStoredProcedure",
-						"dependsOn": [
-							{
-								"activity": "ACT_CPY_OPPORTUNITY_FIELD_HISTORY",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"storedProcedureName": "[[dbo].[SalesForceControlProc]",
-							"storedProcedureParameters": {
-								"LastModifiedtime": {
-									"value": {
-										"value": "@formatDateTime(utcnow(), 'yyyy-MM-ddTHH:mm:ssZ')",
-										"type": "Expression"
-									},
-									"type": "DateTime"
-								},
-								"Object": {
-									"value": "OPPORTUNITY_FIELD_HISTORY",
-									"type": "String"
-								}
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "LS_SQLDB",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "ACT_CPY_OPPORTUNITY_HISTORY",
-						"type": "Copy",
-						"dependsOn": [
-							{
-								"activity": "LOOKUP_CONTROL_OPPORTUNITY_HISTORY",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "SalesforceSource",
-								"query": {
-									"value": "SELECT Id, OpportunityId, CreatedById, CreatedDate, StageName, Amount, ExpectedRevenue, CloseDate, Probability, ForecastCategory, SystemModstamp, IsDeleted from OPPORTUNITYHISTORY where SystemModstamp > @{formatDateTime(activity('LOOKUP_CONTROL_OPPORTUNITY_HISTORY').output.firstRow.LastLoadDate,'yyyy-MM-ddTHH:mm:ssZ')}",
+								"sqlReaderQuery": {
+									"value": "SELECT * FROM [@{pipeline().parameters.schema}].[STG_CONTROL_TABLE] WHERE [SourceObject] = '@{pipeline().parameters.table}'",
 									"type": "Expression"
 								},
-								"readBehavior": "query"
-							},
-							"sink": {
-								"type": "AzureSqlSink",
-								"tableOption": "autoCreate"
-							},
-							"enableStaging": false
-						},
-						"inputs": [
-							{
-								"referenceName": "DS_SALESFORCE_OPPORTUNITY_HISTORY",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "DS_SQLDB_OPPORTUNITY_HISTORY",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
-					},
-					{
-						"name": "LOOKUP_CONTROL_OPPORTUNITY_HISTORY",
-						"type": "Lookup",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderQuery": "SELECT * FROM [dbo].[SalesForceControlTable] WHERE [SourceObject] = 'OPPORTUNITY_HISTORY'",
-								"queryTimeout": "02:00:00"
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
 							},
 							"dataset": {
 								"referenceName": "DS_SQLDB_CONTROL",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"schema": {
+										"value": "@pipeline().parameters.schema",
+										"type": "Expression"
+									}
+								}
 							}
 						}
 					},
 					{
-						"name": "UPDATE_CONTROL_OPPORTUNITY_HISTORY",
+						"name": "UPDATE_CONTROL",
 						"type": "SqlServerStoredProcedure",
 						"dependsOn": [
 							{
-								"activity": "ACT_CPY_OPPORTUNITY_HISTORY",
+								"activity": "ACT_CPY",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -615,17 +944,30 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"storedProcedureName": "[[dbo].[SalesForceControlProc]",
+							"storedProcedureName": {
+								"value": "dbo.salesForceControlProc",
+								"type": "Expression"
+							},
 							"storedProcedureParameters": {
-								"LastModifiedtime": {
+								"Object": {
 									"value": {
-										"value": "@formatDateTime(utcnow(), 'yyyy-MM-ddTHH:mm:ssZ')",
+										"value": "@concat('''', pipeline().parameters.table, '''')",
 										"type": "Expression"
 									},
-									"type": "DateTime"
+									"type": "String"
 								},
-								"Object": {
-									"value": "OPPORTUNITY_HISTORY",
+								"schema": {
+									"value": {
+										"value": "@pipeline().parameters.schema",
+										"type": "Expression"
+									},
+									"type": "String"
+								},
+								"lastLoadTime": {
+									"value": {
+										"value": "@concat('''', pipeline().TriggerTime, '''')",
+										"type": "Expression"
+									},
 									"type": "String"
 								}
 							}
@@ -636,17 +978,31 @@
 						}
 					}
 				],
+				"parameters": {
+					"schema": {
+						"type": "string",
+						"defaultValue": "C0001"
+					},
+					"table": {
+						"type": "string",
+						"defaultValue": "USER"
+					},
+					"sfObject": {
+						"type": "string",
+						"defaultValue": "User"
+					},
+					"query": {
+						"type": "string",
+						"defaultValue": "Select Id, Username, LastName, FirstName, Name, CompanyName, Division, Department, Title, Street, City, State, PostalCode, Country, Latitude, Longitude, GeocodeAccuracy, Email, EmailPreferencesAutoBcc, EmailPreferencesAutoBccStayInTouch, EmailPreferencesStayInTouchReminder, SenderEmail, SenderName, Signature, StayInTouchSubject, StayInTouchSignature, StayInTouchNote, Phone, Fax, MobilePhone, Alias, CommunityNickname, BadgeText, IsActive, TimeZoneSidKey, UserRoleId, LocaleSidKey, ReceivesInfoEmails, ReceivesAdminInfoEmails, EmailEncodingKey, ProfileId, UserType, LanguageLocaleKey, EmployeeNumber, DelegatedApproverId, ManagerId, LastLoginDate, CreatedDate, CreatedById, LastModifiedDate, LastModifiedById, SystemModstamp, OfflineTrialExpirationDate, OfflinePdaTrialExpirationDate, UserPermissionsMarketingUser, UserPermissionsOfflineUser, UserPermissionsAvantgoUser, UserPermissionsCallCenterAutoLogin, UserPermissionsMobileUser, UserPermissionsSFContentUser, UserPermissionsKnowledgeUser, UserPermissionsInteractionUser, UserPermissionsSupportUser, UserPermissionsChatterAnswersUser, ForecastEnabled, UserPreferencesActivityRemindersPopup, UserPreferencesEventRemindersCheckboxDefault, UserPreferencesTaskRemindersCheckboxDefault, UserPreferencesReminderSoundOff, UserPreferencesDisableAllFeedsEmail, UserPreferencesDisableFollowersEmail, UserPreferencesDisableProfilePostEmail, UserPreferencesDisableChangeCommentEmail, UserPreferencesDisableLaterCommentEmail, UserPreferencesDisProfPostCommentEmail, UserPreferencesApexPagesDeveloperMode, UserPreferencesHideCSNGetChatterMobileTask, UserPreferencesDisableMentionsPostEmail, UserPreferencesDisMentionsCommentEmail, UserPreferencesHideCSNDesktopTask, UserPreferencesHideChatterOnboardingSplash, UserPreferencesHideSecondChatterOnboardingSplash, UserPreferencesDisCommentAfterLikeEmail, UserPreferencesDisableLikeEmail, UserPreferencesSortFeedByComment, UserPreferencesDisableMessageEmail, UserPreferencesDisableBookmarkEmail, UserPreferencesDisableSharePostEmail, UserPreferencesEnableAutoSubForFeeds, UserPreferencesDisableFileShareNotificationsForApi, UserPreferencesShowTitleToExternalUsers, UserPreferencesShowManagerToExternalUsers, UserPreferencesShowEmailToExternalUsers, UserPreferencesShowWorkPhoneToExternalUsers, UserPreferencesShowMobilePhoneToExternalUsers, UserPreferencesShowFaxToExternalUsers, UserPreferencesShowStreetAddressToExternalUsers, UserPreferencesShowCityToExternalUsers, UserPreferencesShowStateToExternalUsers, UserPreferencesShowPostalCodeToExternalUsers, UserPreferencesShowCountryToExternalUsers, UserPreferencesShowProfilePicToGuestUsers, UserPreferencesShowTitleToGuestUsers, UserPreferencesShowCityToGuestUsers, UserPreferencesShowStateToGuestUsers, UserPreferencesShowPostalCodeToGuestUsers, UserPreferencesShowCountryToGuestUsers, UserPreferencesPipelineViewHideHelpPopover, UserPreferencesHideS1BrowserUI, UserPreferencesDisableEndorsementEmail, UserPreferencesPathAssistantCollapsed, UserPreferencesCacheDiagnostics, UserPreferencesShowEmailToGuestUsers, UserPreferencesShowManagerToGuestUsers, UserPreferencesShowWorkPhoneToGuestUsers, UserPreferencesShowMobilePhoneToGuestUsers, UserPreferencesShowFaxToGuestUsers, UserPreferencesShowStreetAddressToGuestUsers, UserPreferencesLightningExperiencePreferred, UserPreferencesPreviewLightning, UserPreferencesHideEndUserOnboardingAssistantModal, UserPreferencesHideLightningMigrationModal, UserPreferencesHideSfxWelcomeMat, UserPreferencesHideBiggerPhotoCallout, UserPreferencesGlobalNavBarWTShown, UserPreferencesGlobalNavGridMenuWTShown, UserPreferencesCreateLEXAppsWTShown, UserPreferencesFavoritesWTShown, UserPreferencesRecordHomeSectionCollapseWTShown, UserPreferencesRecordHomeReservedWTShown, UserPreferencesFavoritesShowTopFavorites, UserPreferencesExcludeMailAppAttachments, UserPreferencesSuppressTaskSFXReminders, UserPreferencesSuppressEventSFXReminders, UserPreferencesPreviewCustomTheme, UserPreferencesHasCelebrationBadge, UserPreferencesUserDebugModePref, UserPreferencesNewLightningReportRunPageEnabled, ContactId, AccountId, CallCenterId, Extension, FederationIdentifier, AboutMe, FullPhotoUrl, SmallPhotoUrl, IsExtIndicatorVisible, OutOfOfficeMessage, MediumPhotoUrl, DigestFrequency, DefaultGroupNotificationFrequency, LastViewedDate, LastReferencedDate, BannerPhotoUrl, SmallBannerPhotoUrl, MediumBannerPhotoUrl, IsProfilePhotoActive, IndividualId, Mobile__c, User_External_ID__c, RT1__ReadyTalkAdministrator__c, RT1__ReadyTalkUser__c, DaScoopComposer__Default_Groove_Team__c, DaScoopComposer__Email_Alias_1__c, DaScoopComposer__Email_Alias_2__c, DaScoopComposer__Google_Plus_ID__c, DaScoopComposer__Is_Unresolved_Items_Agent__c, DaScoopComposer__My_Unresolved_Items_Agent__c, DaScoopComposer__Profile_Id__c, BDR__c, Enterprise__c, Midmarket__c, Low_End__c, EMEA__c, Streem__c, Channel__c, Sales_Role__c, West_Enterprise__c, RT1__MeetingsCollaboratorUser__c, is_Account_Manager__c, GMT__c, Account_Manager__c, Customer_Success_Manager__c, approver__c, Previous_Role__c, NSID__c, Current_Role__c, dsfs__DSProSFUsername__c, dfsle__CanManageAccount__c, dfsle__Provisioned__c, dfsle__Status__c, dfsle__Username__c from User where LastModifiedDate > "
+					}
+				},
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/DS_SALESFORCE_OPPORTUNITY')]",
-				"[concat(variables('factoryId'), '/datasets/DS_SQLDB_OPPORTUNITY')]",
-				"[concat(variables('factoryId'), '/datasets/DS_SALESFORCE_OPPORTUNITY_FIELD_HISTORY')]",
-				"[concat(variables('factoryId'), '/datasets/DS_SQLDB_OPPORTUNITY_FIELD_HISTORY')]",
+				"[concat(variables('factoryId'), '/datasets/DS_SALESFORCE')]",
+				"[concat(variables('factoryId'), '/datasets/DS_SQLDB')]",
 				"[concat(variables('factoryId'), '/datasets/DS_SQLDB_CONTROL')]",
-				"[concat(variables('factoryId'), '/linkedServices/LS_SQLDB')]",
-				"[concat(variables('factoryId'), '/datasets/DS_SALESFORCE_OPPORTUNITY_HISTORY')]",
-				"[concat(variables('factoryId'), '/datasets/DS_SQLDB_OPPORTUNITY_HISTORY')]"
+				"[concat(variables('factoryId'), '/linkedServices/LS_SQLDB')]"
 			]
 		}
 	]
