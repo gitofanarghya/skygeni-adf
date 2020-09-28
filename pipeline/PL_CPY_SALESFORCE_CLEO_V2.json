@@ -25,7 +25,7 @@
 					"source": {
 						"type": "SalesforceSource",
 						"query": {
-							"value": "@concat(pipeline().parameters.query,formatDateTime(activity('LOOKUP_CONTROL').output.firstRow.LastLoadDate,'yyyy-MM-ddTHH:mm:ssZ'),' and ',pipeline().parameters.column,' <= ',formatDateTime(activity('LOOKUP_CONTROL').output.firstRow.LoadToDate,'yyyy-MM-ddTHH:mm:ssZ'))",
+							"value": "@concat(pipeline().parameters.query,formatDateTime(activity('LOOKUP_CONTROL').output.firstRow.LoadFromDate,'yyyy-MM-ddTHH:mm:ssZ'),' and ',pipeline().parameters.column,' <= ',formatDateTime(activity('LOOKUP_CONTROL').output.firstRow.LoadToDate,'yyyy-MM-ddTHH:mm:ssZ'))",
 							"type": "Expression"
 						},
 						"readBehavior": "query"
@@ -85,7 +85,8 @@
 							"value": "SELECT * FROM [@{pipeline().parameters.schema}].[STG_CONTROL_TABLE] WHERE [SourceObject] = '@{pipeline().parameters.table}'",
 							"type": "Expression"
 						},
-						"queryTimeout": "02:00:00"
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
 					},
 					"dataset": {
 						"referenceName": "DS_SQLDB_CONTROL",
