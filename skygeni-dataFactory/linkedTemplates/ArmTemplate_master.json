@@ -67,46 +67,6 @@
 			"type": "string",
 			"defaultValue": "LastModifiedDate"
 		},
-		"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema": {
-			"type": "string",
-			"defaultValue": "C0001"
-		},
-		"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table": {
-			"type": "string",
-			"defaultValue": "USER"
-		},
-		"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject": {
-			"type": "string",
-			"defaultValue": "User"
-		},
-		"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query": {
-			"type": "string",
-			"defaultValue": "Select Id, Username, Name, CompanyName, Division, Department, Title, IsActive, TimeZoneSidKey, UserRoleId, ManagerId, LastLoginDate, CreatedDate, LastModifiedDate, SystemModstamp from User where LastModifiedDate > "
-		},
-		"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column": {
-			"type": "string",
-			"defaultValue": "LastModifiedDate"
-		},
-		"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema": {
-			"type": "string",
-			"defaultValue": "C0001"
-		},
-		"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table": {
-			"type": "string",
-			"defaultValue": "ROLE"
-		},
-		"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject": {
-			"type": "string",
-			"defaultValue": "UserRole"
-		},
-		"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query": {
-			"type": "string",
-			"defaultValue": "SELECT Id, Name, ParentRoleId, RollupDescription, LastModifiedDate, SystemModstamp, DeveloperName from UserRole where LastModifiedDate >"
-		},
-		"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column": {
-			"type": "string",
-			"defaultValue": "LastModifiedDate"
-		},
 		"cleo_extract_stg_opp_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema": {
 			"type": "string",
 			"defaultValue": "C0001"
@@ -166,6 +126,46 @@
 		"cleo_extract_stg_opp_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column": {
 			"type": "string",
 			"defaultValue": "CreatedDate"
+		},
+		"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema": {
+			"type": "string",
+			"defaultValue": "C0001"
+		},
+		"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table": {
+			"type": "string",
+			"defaultValue": "ROLE"
+		},
+		"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject": {
+			"type": "string",
+			"defaultValue": "UserRole"
+		},
+		"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query": {
+			"type": "string",
+			"defaultValue": "SELECT Id, Name, ParentRoleId, RollupDescription, LastModifiedDate, SystemModstamp, DeveloperName from UserRole where LastModifiedDate >"
+		},
+		"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column": {
+			"type": "string",
+			"defaultValue": "LastModifiedDate"
+		},
+		"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema": {
+			"type": "string",
+			"defaultValue": "C0001"
+		},
+		"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table": {
+			"type": "string",
+			"defaultValue": "USER"
+		},
+		"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject": {
+			"type": "string",
+			"defaultValue": "User"
+		},
+		"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query": {
+			"type": "string",
+			"defaultValue": "Select Id, Username, Name, CompanyName, Division, Department, Title, IsActive, TimeZoneSidKey, UserRoleId, ManagerId, LastLoginDate, CreatedDate, LastModifiedDate, SystemModstamp from User where LastModifiedDate > "
+		},
+		"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column": {
+			"type": "string",
+			"defaultValue": "LastModifiedDate"
 		},
 		"containerUri": {
 			"type": "string",
@@ -257,36 +257,6 @@
 					"cleo_extract_stg_account_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column": {
 						"value": "[parameters('cleo_extract_stg_account_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column')]"
 					},
-					"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema": {
-						"value": "[parameters('cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema')]"
-					},
-					"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table": {
-						"value": "[parameters('cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table')]"
-					},
-					"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject": {
-						"value": "[parameters('cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject')]"
-					},
-					"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query": {
-						"value": "[parameters('cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query')]"
-					},
-					"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column": {
-						"value": "[parameters('cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column')]"
-					},
-					"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema": {
-						"value": "[parameters('cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema')]"
-					},
-					"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table": {
-						"value": "[parameters('cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table')]"
-					},
-					"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject": {
-						"value": "[parameters('cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject')]"
-					},
-					"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query": {
-						"value": "[parameters('cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query')]"
-					},
-					"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column": {
-						"value": "[parameters('cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column')]"
-					},
 					"cleo_extract_stg_opp_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema": {
 						"value": "[parameters('cleo_extract_stg_opp_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema')]"
 					},
@@ -331,6 +301,36 @@
 					},
 					"cleo_extract_stg_opp_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column": {
 						"value": "[parameters('cleo_extract_stg_opp_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column')]"
+					},
+					"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema": {
+						"value": "[parameters('cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema')]"
+					},
+					"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table": {
+						"value": "[parameters('cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table')]"
+					},
+					"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject": {
+						"value": "[parameters('cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject')]"
+					},
+					"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query": {
+						"value": "[parameters('cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query')]"
+					},
+					"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column": {
+						"value": "[parameters('cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column')]"
+					},
+					"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema": {
+						"value": "[parameters('cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema')]"
+					},
+					"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table": {
+						"value": "[parameters('cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table')]"
+					},
+					"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject": {
+						"value": "[parameters('cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject')]"
+					},
+					"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query": {
+						"value": "[parameters('cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query')]"
+					},
+					"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column": {
+						"value": "[parameters('cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column')]"
 					}
 				}
 			},

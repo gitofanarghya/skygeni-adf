@@ -67,46 +67,6 @@
 			"type": "string",
 			"defaultValue": "LastModifiedDate"
 		},
-		"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema": {
-			"type": "string",
-			"defaultValue": "C0001"
-		},
-		"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table": {
-			"type": "string",
-			"defaultValue": "USER"
-		},
-		"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject": {
-			"type": "string",
-			"defaultValue": "User"
-		},
-		"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query": {
-			"type": "string",
-			"defaultValue": "Select Id, Username, Name, CompanyName, Division, Department, Title, IsActive, TimeZoneSidKey, UserRoleId, ManagerId, LastLoginDate, CreatedDate, LastModifiedDate, SystemModstamp from User where LastModifiedDate > "
-		},
-		"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column": {
-			"type": "string",
-			"defaultValue": "LastModifiedDate"
-		},
-		"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema": {
-			"type": "string",
-			"defaultValue": "C0001"
-		},
-		"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table": {
-			"type": "string",
-			"defaultValue": "ROLE"
-		},
-		"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject": {
-			"type": "string",
-			"defaultValue": "UserRole"
-		},
-		"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query": {
-			"type": "string",
-			"defaultValue": "SELECT Id, Name, ParentRoleId, RollupDescription, LastModifiedDate, SystemModstamp, DeveloperName from UserRole where LastModifiedDate >"
-		},
-		"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column": {
-			"type": "string",
-			"defaultValue": "LastModifiedDate"
-		},
 		"cleo_extract_stg_opp_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema": {
 			"type": "string",
 			"defaultValue": "C0001"
@@ -166,6 +126,46 @@
 		"cleo_extract_stg_opp_history_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column": {
 			"type": "string",
 			"defaultValue": "CreatedDate"
+		},
+		"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema": {
+			"type": "string",
+			"defaultValue": "C0001"
+		},
+		"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table": {
+			"type": "string",
+			"defaultValue": "ROLE"
+		},
+		"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject": {
+			"type": "string",
+			"defaultValue": "UserRole"
+		},
+		"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query": {
+			"type": "string",
+			"defaultValue": "SELECT Id, Name, ParentRoleId, RollupDescription, LastModifiedDate, SystemModstamp, DeveloperName from UserRole where LastModifiedDate >"
+		},
+		"cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column": {
+			"type": "string",
+			"defaultValue": "LastModifiedDate"
+		},
+		"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema": {
+			"type": "string",
+			"defaultValue": "C0001"
+		},
+		"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table": {
+			"type": "string",
+			"defaultValue": "USER"
+		},
+		"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject": {
+			"type": "string",
+			"defaultValue": "User"
+		},
+		"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query": {
+			"type": "string",
+			"defaultValue": "Select Id, Username, Name, CompanyName, Division, Department, Title, IsActive, TimeZoneSidKey, UserRoleId, ManagerId, LastLoginDate, CreatedDate, LastModifiedDate, SystemModstamp from User where LastModifiedDate > "
+		},
+		"cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column": {
+			"type": "string",
+			"defaultValue": "LastModifiedDate"
 		}
 	},
 	"variables": {
@@ -386,7 +386,7 @@
 							"source": {
 								"type": "SalesforceSource",
 								"query": {
-									"value": "@concat(pipeline().parameters.query,formatDateTime(activity('LOOKUP_CONTROL').output.firstRow.LastLoadDate,'yyyy-MM-ddTHH:mm:ssZ'),' and ',pipeline().parameters.column,' <= ',formatDateTime(activity('LOOKUP_CONTROL').output.firstRow.LoadToDate,'yyyy-MM-ddTHH:mm:ssZ'))",
+									"value": "@concat(pipeline().parameters.query,formatDateTime(activity('LOOKUP_CONTROL').output.firstRow.LoadFromDate,'yyyy-MM-ddTHH:mm:ssZ'),' and ',pipeline().parameters.column,' <= ',formatDateTime(activity('LOOKUP_CONTROL').output.firstRow.LoadToDate,'yyyy-MM-ddTHH:mm:ssZ'))",
 									"type": "Expression"
 								},
 								"readBehavior": "query"
@@ -1590,123 +1590,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/anarghyaLocal')]",
-			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "SelfHosted",
-				"typeProperties": {}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/salesforce-IR')]",
-			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "Managed",
-				"typeProperties": {
-					"computeProperties": {
-						"location": "East US",
-						"dataFlowProperties": {
-							"computeType": "General",
-							"coreCount": 8,
-							"timeToLive": 0
-						}
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/cleo_extract_stg_user')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "PL_CPY_SALESFORCE_CLEO_V2",
-							"type": "PipelineReference"
-						},
-						"parameters": {
-							"schema": "[parameters('cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema')]",
-							"table": "[parameters('cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table')]",
-							"sfObject": "[parameters('cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject')]",
-							"query": "[parameters('cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query')]",
-							"column": "[parameters('cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column')]"
-						}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Day",
-						"interval": 1,
-						"startTime": "2020-08-26T18:50:00.000Z",
-						"timeZone": "UTC",
-						"schedule": {
-							"minutes": [
-								30
-							],
-							"hours": [
-								21
-							]
-						}
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/PL_CPY_SALESFORCE_CLEO_V2')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/cleo_extract_stg_role')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "PL_CPY_SALESFORCE_CLEO_V2",
-							"type": "PipelineReference"
-						},
-						"parameters": {
-							"schema": "[parameters('cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema')]",
-							"table": "[parameters('cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table')]",
-							"sfObject": "[parameters('cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject')]",
-							"query": "[parameters('cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query')]",
-							"column": "[parameters('cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column')]"
-						}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Day",
-						"interval": 1,
-						"startTime": "2020-08-26T18:51:00.000Z",
-						"timeZone": "UTC",
-						"schedule": {
-							"minutes": [
-								30
-							],
-							"hours": [
-								21
-							]
-						}
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/PL_CPY_SALESFORCE_CLEO_V2')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/cleo_extract_stg_opp')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
@@ -1837,6 +1720,123 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/PL_CPY_SALESFORCE_CLEO_V2')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/cleo_extract_stg_role')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "PL_CPY_SALESFORCE_CLEO_V2",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"schema": "[parameters('cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema')]",
+							"table": "[parameters('cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table')]",
+							"sfObject": "[parameters('cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject')]",
+							"query": "[parameters('cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query')]",
+							"column": "[parameters('cleo_extract_stg_role_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column')]"
+						}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Day",
+						"interval": 1,
+						"startTime": "2020-08-26T18:51:00.000Z",
+						"timeZone": "UTC",
+						"schedule": {
+							"minutes": [
+								30
+							],
+							"hours": [
+								21
+							]
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/PL_CPY_SALESFORCE_CLEO_V2')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/cleo_extract_stg_user')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "PL_CPY_SALESFORCE_CLEO_V2",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"schema": "[parameters('cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_schema')]",
+							"table": "[parameters('cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_table')]",
+							"sfObject": "[parameters('cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_sfObject')]",
+							"query": "[parameters('cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_query')]",
+							"column": "[parameters('cleo_extract_stg_user_properties_PL_CPY_SALESFORCE_CLEO_V2_parameters_column')]"
+						}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Day",
+						"interval": 1,
+						"startTime": "2020-08-26T18:50:00.000Z",
+						"timeZone": "UTC",
+						"schedule": {
+							"minutes": [
+								30
+							],
+							"hours": [
+								21
+							]
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/PL_CPY_SALESFORCE_CLEO_V2')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/anarghyaLocal')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "SelfHosted",
+				"typeProperties": {}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/salesforce-IR')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "Managed",
+				"typeProperties": {
+					"computeProperties": {
+						"location": "East US",
+						"dataFlowProperties": {
+							"computeType": "General",
+							"coreCount": 8,
+							"timeToLive": 0
+						}
+					}
+				}
+			},
+			"dependsOn": []
 		}
 	]
 }
