@@ -28,7 +28,7 @@
 							"value": "@concat(pipeline().parameters.query,formatDateTime(activity('LOOKUP_CONTROL').output.firstRow.LoadFromDate,'yyyy-MM-ddTHH:mm:ssZ'),' and ',pipeline().parameters.column,' <= ',formatDateTime(activity('LOOKUP_CONTROL').output.firstRow.LoadToDate,'yyyy-MM-ddTHH:mm:ssZ'))",
 							"type": "Expression"
 						},
-						"readBehavior": "query"
+						"readBehavior": "queryAll"
 					},
 					"sink": {
 						"type": "AzureSqlSink",
