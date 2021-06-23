@@ -39,11 +39,8 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "DS_SALESFORCE_METRICSTREAM",
-						"type": "DatasetReference",
-						"parameters": {
-							"objectName": "@pipeline().parameters.sfObject"
-						}
+						"referenceName": "DS_SALESFORCE_SAFEBREACH",
+						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
