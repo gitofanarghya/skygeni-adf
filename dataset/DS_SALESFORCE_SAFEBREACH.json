@@ -1,0 +1,12 @@
+{
+	"name": "DS_SALESFORCE_SAFEBREACH",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SALESFORCE_SAFEBREACH",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SalesforceObject",
+		"schema": []
+	}
+}
